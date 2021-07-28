@@ -1,0 +1,44 @@
+# 配置
+spring:
+  redis:
+    host: xxx.xx.xx.xx
+    port: 1111
+    # 密码 没有则可以不填
+    password: xxxxx
+    # 如果使用的jedis 则将lettuce改成jedis即可
+    timeout: 6000 # 连接超时时间（毫秒）
+    database: 0
+    jedis:
+      pool:
+        # 最大活跃链接数 默认8
+        max-active: 8
+        # 最大空闲连接数 默认8
+        max-idle: 8
+        # 最小空闲连接数 默认0
+        min-idle: 0
+        max-wait: -1
+  #出现错误时, 直接抛出异常(便于异常统一处理，否则捕获不到404)
+  mvc:
+    throw-exception-if-no-handler-found: true
+  #不要为我们工程中的资源文件建立映射
+  #  resources:
+  #    add-mappings: false
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      connection_test_query: select 1
+      validation_timeout: 3000
+      connection_timeout: 300000
+      idle_timeout: 600000
+      max_lifetime: 28770000
+    url:  jdbc:mysql://127.0.0.1:3306/qpgame?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: root
+server:
+  servlet:
+    context-path: /api
+  port: 6010
+logging:
+  level:
+    com.zhangxx.web: DEBUG
+    org.springframework.data.mongodb.core: DEBUG
