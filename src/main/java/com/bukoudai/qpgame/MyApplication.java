@@ -1,10 +1,12 @@
 package com.bukoudai.qpgame;
 
+import com.bukoudai.qpgame.controller.QQbotController;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.ConfigurableApplicationContext;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
@@ -15,9 +17,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class MyApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MyApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(MyApplication.class, args);
         log.info("项目启动");
-
+        QQbotController bean = context.getBean(QQbotController.class);
+        bean.strat();
+        log.info("机器人启动");
     }
 
 }

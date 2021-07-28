@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import org.springframework.stereotype.Service;
 
+/**
+ * 添加积分命令
+ */
 @Service
 @AllArgsConstructor
 public class AddPointCommand implements Command {
