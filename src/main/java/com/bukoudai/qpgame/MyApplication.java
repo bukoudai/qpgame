@@ -1,6 +1,5 @@
 package com.bukoudai.qpgame;
 
-import com.bukoudai.qpgame.controller.QQbotController;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

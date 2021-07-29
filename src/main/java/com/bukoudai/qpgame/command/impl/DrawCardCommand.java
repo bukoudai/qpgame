@@ -1,8 +1,9 @@
-package com.bukoudai.qpgame.command;
+package com.bukoudai.qpgame.command.impl;
 
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.Pets;
 import com.bukoudai.qpgame.entitys.UserPets;
 import com.bukoudai.qpgame.entitys.UserPoints;

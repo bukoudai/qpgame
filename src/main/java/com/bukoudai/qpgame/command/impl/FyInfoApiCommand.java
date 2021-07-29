@@ -1,6 +1,7 @@
-package com.bukoudai.qpgame.command;
+package com.bukoudai.qpgame.command.impl;
 
 import cn.hutool.json.JSONObject;
+import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.thirdapi.FyInfo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.GroupMessageEvent;

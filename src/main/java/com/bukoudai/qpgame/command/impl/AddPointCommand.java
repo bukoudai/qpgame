@@ -1,6 +1,7 @@
-package com.bukoudai.qpgame.command;
+package com.bukoudai.qpgame.command.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.UserPoints;
 import com.bukoudai.qpgame.mapper.UserPointsMapper;
 import lombok.AllArgsConstructor;

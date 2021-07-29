@@ -1,4 +1,4 @@
-package com.bukoudai.qpgame.command;
+package com.bukoudai.qpgame.command.impl;
 
 import cn.hutool.json.JSONObject;
 import com.bukoudai.qpgame.thirdapi.FyInfo;
