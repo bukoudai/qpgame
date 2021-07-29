@@ -1,4 +1,4 @@
 # 配置设置
 spring:
   profiles:
-    include: prd
+    include: test

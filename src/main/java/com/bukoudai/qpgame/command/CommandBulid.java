@@ -16,6 +16,7 @@ public class CommandBulid {
     private final DrawCardCommand drawCardCommand;
     private final AddPointCommand addPointCommand;
     private final RollCommand rollCommand;
+    private final FyInfoApiCommand fyInfoApiCommand;
 
 
     public Command bulid(MessageEvent event) {
@@ -31,6 +32,9 @@ public class CommandBulid {
         }
         if (content.substring(1).startsWith("投骰子")) {
             return rollCommand;
+        }
+        if (content.substring(1).startsWith("疫情")) {
+            return fyInfoApiCommand;
         }
         //未识别命令 算作普通消息
         return addPointCommand;
