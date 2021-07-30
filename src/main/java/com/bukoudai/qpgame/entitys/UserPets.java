@@ -1,5 +1,6 @@
 package com.bukoudai.qpgame.entitys;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -30,8 +31,15 @@ public class UserPets {
      * 积分
      */
     private String petName;
+
     private Integer petId;
     private String petNike;
 
+    @Override
+    public String toString() {
 
+        return StrUtil.format("id:{},昵称:{},名称:{}", userPetId, petNike, petName);
+
+
+    }
 }
