@@ -20,13 +20,13 @@ public class CommandBulid {
     private static final String DRAW_CARD_COMMAND_KEY="/抽卡";
     private final DrawCardCommand drawCardCommand;
 
-    private static final String ROLL_COMMAND_KEY="/抽卡";
+    private static final String ROLL_COMMAND_KEY="/roll";
     private final RollCommand rollCommand;
 
     private static final String FYINFO_API_COMMAND_KEY="/疫情";
     private final FyInfoApiCommand fyInfoApiCommand;
 
-    private static final String USE_RPETS_COMMAND_KEY="/宠物";
+    private static final String USE_RPETS_COMMAND_KEY="/pet";
     private final UserPetsCommand userPetsCommand;
 
 

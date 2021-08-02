@@ -1,12 +1,9 @@
 package com.bukoudai.qpgame.task;
 
-import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HtmlUtil;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.bukoudai.qpgame.thirdapi.FyInfo;
+import com.bukoudai.qpgame.utlis.BotUtils;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.Bot;
@@ -15,9 +12,6 @@ import net.mamoe.mirai.contact.Group;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 定时任务
@@ -44,7 +38,7 @@ public class GrantWealTask {
         String msg = msgB.toString();
         if (StringUtils.isNotBlank(msg)) {
             for (Group group : groups) {
-                group.sendMessage(msg);
+                BotUtils.sendMsg(group, null, msg);
             }
         }
         msgB = new StringBuilder();
@@ -54,7 +48,7 @@ public class GrantWealTask {
         msg = msgB.toString();
         if (StringUtils.isNotBlank(msg)) {
             for (Group group : groups) {
-                group.sendMessage(msg);
+                BotUtils.sendMsg(group, null, msg);
             }
         }
     }

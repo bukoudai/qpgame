@@ -138,7 +138,6 @@ public class FyInfo {
             o.remove("summary");
             o.remove("provinceName");
             if ("新浪".equals(o.getStr("infoSource"))) {
-                o.remove("title");
                 String url = o.getStr("sourceUrl");
                 String html = HttpUtil.get(url);
                 List<String> titles = ReUtil.findAll("<div class=\"article\" id=\"article\">(.*?)<!-- 正文 end -->", html, 1);
@@ -152,7 +151,9 @@ public class FyInfo {
                             jionList.add(row);
                         }
                     }
-                    join = StrUtil.join("\r\n", jionList);
+                    jionList.removeFirst();
+                    jionList.removeLast();
+                    join = StrUtil.join("", jionList);
                 }
                 o.set("context", join);
             }
