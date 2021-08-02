@@ -1,7 +1,11 @@
 package com.bukoudai.qpgame.task;
 
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HtmlUtil;
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import com.bukoudai.qpgame.thirdapi.FyInfo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +15,9 @@ import net.mamoe.mirai.contact.Group;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 定时任务
@@ -42,7 +49,8 @@ public class GrantWealTask {
         }
         msgB = new StringBuilder();
         msgB.append("今日疫情新闻:\r\n");
-        msgB.append(JSONUtil.parseObj(FyInfo.getFyNews()).toStringPretty());
+        JSONArray fyNewsJSONArray = FyInfo.getFyNewsJSONArray();
+        msgB.append(fyNewsJSONArray.toStringPretty());
         msg = msgB.toString();
         if (StringUtils.isNotBlank(msg)) {
             for (Group group : groups) {

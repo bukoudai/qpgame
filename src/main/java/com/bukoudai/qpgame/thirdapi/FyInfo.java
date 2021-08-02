@@ -1,5 +1,9 @@
 package com.bukoudai.qpgame.thirdapi;
 
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HtmlUtil;
+import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -66,7 +70,6 @@ public class FyInfo {
 
     public static void main(String[] args) {
         String fyNews = FyInfo.getFyNews();
-
         System.out.println(fyNews);
     }
 
@@ -75,15 +78,12 @@ public class FyInfo {
         if (provinceDtail != null) {
             JSONArray cityList = provinceDtail.getJSONArray("cityList");
             JSONArray dangerAreas = provinceDtail.getJSONArray("dangerAreas");
-
-
             if (cityList != null) {
                 for (JSONObject jsonObject : cityList.jsonIter()) {
-
                     if (city.equals(jsonObject.getStr("cityName"))) {
                         jsonObject.set("dangerAreas", dangerAreas);
-                        jsonObject.set("updateTime",provinceDtail.get("updateTime"));
-                        jsonObject.set("todayStatictic",provinceDtail.get("todayStatictic"));
+                        jsonObject.set("updateTime", provinceDtail.get("updateTime"));
+                        jsonObject.set("todayStatictic", provinceDtail.get("todayStatictic"));
                         return jsonObject;
                     }
 
@@ -105,8 +105,8 @@ public class FyInfo {
                 for (JSONObject jsonObject : jsonArray.jsonIter()) {
 
                     if (provinceName.equals(jsonObject.getStr("provinceName"))) {
-                        jsonObject.set("updateTime",resBody.get("updateTime"));
-                        jsonObject.set("todayStatictic",resBody.get("todayStatictic"));
+                        jsonObject.set("updateTime", resBody.get("updateTime"));
+                        jsonObject.set("todayStatictic", resBody.get("todayStatictic"));
                         return jsonObject;
                     }
 
@@ -125,7 +125,40 @@ public class FyInfo {
     }
 
     public static String getFyNews() {
+
+
         return FyInfo.getFyInfo(fy_news_url);
+    }
+
+    public static JSONArray getFyNewsJSONArray() {
+        JSONObject object = JSONUtil.parseObj(FyInfo.getFyNews());
+        JSONArray reArray = new JSONArray();
+        JSONArray fyNewsJSONArray = object.getJSONObject("showapi_res_body").getJSONArray("newsList");
+        for (JSONObject o : fyNewsJSONArray.jsonIter()) {
+            o.remove("summary");
+            o.remove("provinceName");
+            if ("新浪".equals(o.getStr("infoSource"))) {
+                o.remove("title");
+                String url = o.getStr("sourceUrl");
+                String html = HttpUtil.get(url);
+                List<String> titles = ReUtil.findAll("<div class=\"article\" id=\"article\">(.*?)<!-- 正文 end -->", html, 1);
+                String join = "";
+                for (String title : titles) {
+                    String context = HtmlUtil.cleanHtmlTag(HtmlUtil.filter(title));
+                    String[] contextList = context.replaceAll("[\r\n\t]", "").split("　");
+                    LinkedList<String> jionList = new LinkedList<>();
+                    for (String row : contextList) {
+                        if (StrUtil.isNotBlank(row)) {
+                            jionList.add(row);
+                        }
+                    }
+                    join = StrUtil.join("\r\n", jionList);
+                }
+                o.set("context", join);
+            }
+            reArray.add(o);
+        }
+        return reArray;
     }
 
     private static String getFyInfo(String urlFyInfo) {
