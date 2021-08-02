@@ -29,28 +29,15 @@ public class GrantWealTask {
      */
     @Scheduled(cron = "${schedule.my_bot_task.test}")
     public void test() {
-        StringBuilder msgB = new StringBuilder("今日疫情信息:");
 
-        JSONObject fyCityDtail = FyInfo.getFyCityDtail("四川省", "成都");
-        msgB.append(fyCityDtail == null ? "" : fyCityDtail.toStringPretty());
         ContactList<Group> groups = myBot.getGroups();
 
-        String msg = msgB.toString();
-        if (StringUtils.isNotBlank(msg)) {
+
+
             for (Group group : groups) {
-                BotUtils.sendMsg(group, null, msg);
+                BotUtils.sendMsg(group, null, "早上好");
             }
-        }
-        msgB = new StringBuilder();
-        msgB.append("今日疫情新闻:\r\n");
-        JSONArray fyNewsJSONArray = FyInfo.getFyNewsJSONArray();
-        msgB.append(fyNewsJSONArray.toStringPretty());
-        msg = msgB.toString();
-        if (StringUtils.isNotBlank(msg)) {
-            for (Group group : groups) {
-                BotUtils.sendMsg(group, null, msg);
-            }
-        }
+
     }
 
 }

@@ -30,16 +30,16 @@ import java.util.*;
 public class FyInfo {
     //云市场分配的密钥Id
     @Value("${yysj.secret_id}")
-    private static String secretId = "AKIDJcTn5aHuf5Dn0ugI1oe1mb1nNtn4qnt1H34U";
+    private static String secretId;
     //云市场分配的密钥Key
     @Value("${yysj.secret_key}")
-    private static String secretKey = "472hGPtyTZx7LLX7hruDFV57RnNqV54J190BShE";
-    private static String source = "market";
+    private static String secretKey;
+    private final static String source = "market";
 
     @Value("${yysj.fy_news_url}")
-    private static String fy_news_url = "http://service-3k8gkc1x-1255468759.sh.apigw.tencentcs.com/release/fy_news";
+    private static String fy_news_url;
     @Value("${yysj.fy_details}")
-    private static String fy_details = "http://service-3k8gkc1x-1255468759.sh.apigw.tencentcs.com/release/fy_details";
+    private static String fy_details;
 
     public static String calcAuthorization(String source, String secretId, String secretKey, String datetime)
             throws NoSuchAlgorithmException, InvalidKeyException {
@@ -125,19 +125,17 @@ public class FyInfo {
     }
 
     public static String getFyNews() {
-
-
         return FyInfo.getFyInfo(fy_news_url);
     }
 
-    public static JSONArray getFyNewsJSONArray() {
+    public static JSONArray getFyNewsJSONArray(Boolean detail) {
         JSONObject object = JSONUtil.parseObj(FyInfo.getFyNews());
         JSONArray reArray = new JSONArray();
         JSONArray fyNewsJSONArray = object.getJSONObject("showapi_res_body").getJSONArray("newsList");
         for (JSONObject o : fyNewsJSONArray.jsonIter()) {
             o.remove("summary");
             o.remove("provinceName");
-            if ("新浪".equals(o.getStr("infoSource"))) {
+            if (detail && "新浪".equals(o.getStr("infoSource"))) {
                 String url = o.getStr("sourceUrl");
                 String html = HttpUtil.get(url);
                 List<String> titles = ReUtil.findAll("<div class=\"article\" id=\"article\">(.*?)<!-- 正文 end -->", html, 1);
@@ -160,6 +158,12 @@ public class FyInfo {
             reArray.add(o);
         }
         return reArray;
+
+
+    }
+
+    public static JSONArray getFyNewsJSONArray() {
+        return getFyNewsJSONArray(Boolean.FALSE);
     }
 
     private static String getFyInfo(String urlFyInfo) {

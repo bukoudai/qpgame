@@ -1,9 +1,5 @@
 package com.bukoudai.qpgame.command.impl;
 
-import cn.hutool.core.util.ReUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HtmlUtil;
-import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.bukoudai.qpgame.command.Command;
@@ -11,9 +7,6 @@ import com.bukoudai.qpgame.thirdapi.FyInfo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import org.springframework.stereotype.Service;
-
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +29,7 @@ public class FyInfoApiCommand implements Command {
         StringBuilder msgB = new StringBuilder();
         if ("新闻".equals(provinceName)) {
             msgB.append("今日疫情新闻:\r\n");
-            JSONArray fyNewsJSONArray = FyInfo.getFyNewsJSONArray();
+            JSONArray fyNewsJSONArray = FyInfo.getFyNewsJSONArray(Boolean.TRUE);
             msgB.append(fyNewsJSONArray.toStringPretty());
 
         } else {
