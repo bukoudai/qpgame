@@ -23,17 +23,30 @@ public class UserPetsCommand implements Command {
 
         String s = event.getMessage().contentToString();
         String[] s1 = s.split(" ");
-
-        String key = "";
+        long senderId = event.getSender().getId();
+        String key1 = "";
         if (s1.length > 1) {
-            key = s1[1];
+            key1 = s1[1];
 
         }
-        if ("-l".equals(key)) {
-
-            long senderId = event.getSender().getId();
+        if ("-l".equals(key1)) {
             List<UserPets> userPets = userPetsService.queryUserPets(User.builder().loginNo(senderId).build());
             return userPets.toString();
+        } else if ("-m".equals(key1)) {
+            String key2;
+            if (s1.length > 2) {
+                key2 = s1[2];
+                userPetsService.setMainPets(String.valueOf(senderId), key2);
+                return "可能成功了 ";
+
+            } else {
+
+                UserPets re = userPetsService.getMainPet(String.valueOf(senderId));
+
+                return re == null ? "未设置主要宠物" : re.toString();
+            }
+
+
         } else {
             return "指令错误 现有指令 -l ";
         }

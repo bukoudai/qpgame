@@ -34,6 +34,7 @@ public class UserPets {
 
     private Integer petId;
     private String petNike;
+    private String isMain;
 
     @Override
     public String toString() {

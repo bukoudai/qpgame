@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.bukoudai.qpgame.entitys.User;
 import com.bukoudai.qpgame.entitys.UserPets;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface UserPetsMapper extends BaseMapper<UserPets> {
     /**
      * 查看宠物列表信息
      */
-    @Select("SELECT user_pet_id,pet_name,pet_id,pet_nike FROM user_pets WHERE login_no =#{loginNo} ")
+    @Select("SELECT user_pet_id,pet_name,pet_id,pet_nike,is_main FROM user_pets WHERE login_no =#{loginNo} ")
     List<UserPets> queryUserPets(User user);
 
     /**
@@ -21,9 +22,18 @@ public interface UserPetsMapper extends BaseMapper<UserPets> {
      */
    Integer queryUserPetsCount(User user);
 
+    /**
+     * 清除主宠
+     * @param loginNo
+     */
+    @Update("update user_pets set is_main = '0' WHERE login_no =#{loginNo} ")
+    void clearMainPets(String loginNo);
 
-
-
-
-
+    /**
+     * 设置主宠
+     * @param loginNo
+     * @param userPetId
+     */
+    @Update("update user_pets set is_main = '1' WHERE login_no =#{user.loginNo} and user_pet_id=#{userPets.userPetId}")
+    void setMainPets(String loginNo, String userPetId);
 }

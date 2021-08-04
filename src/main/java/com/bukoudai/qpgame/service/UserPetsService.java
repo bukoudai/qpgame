@@ -15,9 +15,9 @@ public interface UserPetsService {
 
 
    /**
-    * 查看宠物列表信息
+    * 设置主宠
     */
-   void setMainPets(User user,UserPets userPets);
+   void setMainPets(String loginNo,String userPetId);
 
    /**
     * 查看宠物列表信息
@@ -34,6 +34,10 @@ public interface UserPetsService {
     */
    void destroyUserPets(User user,UserPets userPets);
 
-
-
+   /**
+    * 查询主要宠物
+    * @param loginNo
+    * @return
+    */
+   UserPets getMainPet(String loginNo);
 }
