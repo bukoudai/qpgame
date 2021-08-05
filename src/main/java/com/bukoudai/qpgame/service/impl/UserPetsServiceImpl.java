@@ -48,4 +48,11 @@ public class UserPetsServiceImpl extends ServiceImpl<UserPetsMapper, UserPets> i
         UserPets userPets = baseMapper.selectOne(wrapper);
         return userPets;
     }
+
+    @Override
+    public List<String> pk(UserPets one, UserPets other) {
+
+
+        return null;
+    }
 }

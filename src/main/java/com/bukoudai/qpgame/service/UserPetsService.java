@@ -40,4 +40,12 @@ public interface UserPetsService {
     * @return
     */
    UserPets getMainPet(String loginNo);
+
+   /**
+    * pk方法 返回对战描述列表
+    * @param one
+    * @param other
+    * @return
+    */
+   List<String> pk(UserPets one,UserPets other);
 }
