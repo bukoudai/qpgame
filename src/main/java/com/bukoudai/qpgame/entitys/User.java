@@ -25,5 +25,9 @@ public class User {
      * 账号
      */
     private Long loginNo;
+
     private Integer role;
+
+    private String nick;
+
 }
