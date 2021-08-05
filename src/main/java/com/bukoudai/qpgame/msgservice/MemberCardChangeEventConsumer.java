@@ -29,7 +29,7 @@ public class MemberCardChangeEventConsumer implements Consumer<MemberCardChangeE
         NormalMember member = event.getMember();
         long memberId = member.getId();
         String nick = member.getNick();
-
+        String nameCard = member.getNameCard();
         if (botId != memberId) {
             QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
             userQueryWrapper.eq("login_no", memberId);
@@ -38,9 +38,10 @@ public class MemberCardChangeEventConsumer implements Consumer<MemberCardChangeE
                 one = User.builder().loginNo(memberId).role(2).nick(nick).build();
                 userService.save(one);
             } else {
-                if (!nick.equals(one.getNick())) {
-                    log.info("{}设置昵称{}",memberId,nick);
-                    member.setNameCard(nick);
+                String oneNick = one.getNick();
+                if (!nameCard.equals(oneNick)) {
+                    log.info("{}设置昵称{}",memberId, oneNick);
+                    member.setNameCard(oneNick);
                 }
             }
         }
