@@ -3,6 +3,7 @@ package com.bukoudai.qpgame.msgservice;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bukoudai.qpgame.entitys.User;
 import com.bukoudai.qpgame.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.contact.NormalMember;
 import net.mamoe.mirai.event.events.MemberCardChangeEvent;
 
@@ -11,7 +12,7 @@ import java.util.function.Consumer;
 /**
  * 修改名片修复
  */
-
+@Slf4j
 public class MemberCardChangeEventConsumer implements Consumer<MemberCardChangeEvent> {
 
     private final Long botId;
@@ -38,6 +39,7 @@ public class MemberCardChangeEventConsumer implements Consumer<MemberCardChangeE
                 userService.save(one);
             } else {
                 if (!nick.equals(one.getNick())) {
+                    log.info("{}设置昵称{}",memberId,nick);
                     member.setNameCard(nick);
                 }
             }

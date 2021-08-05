@@ -23,12 +23,12 @@ public class BotUtils {
                 } else {
                     doWhile = false;
                 }
-                MessageChainBuilder singleMessages = new MessageChainBuilder().append(msg);
+                MessageChainBuilder singleMessages = new MessageChainBuilder();
                 if (event != null && needReply) {
                     singleMessages.append(new QuoteReply(event.getMessage()));
                     needReply = false;
                 }
-                group.sendMessage(singleMessages.build());
+                group.sendMessage(singleMessages.append(msg).build());
             }
 
 
