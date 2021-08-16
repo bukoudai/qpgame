@@ -37,7 +37,7 @@ public class UserPetsCommand implements Command {
             if (s1.length > 2) {
                 key2 = s1[2];
                 userPetsService.setMainPets(String.valueOf(senderId), key2);
-                return "可能成功了 ";
+                return "设置出战宠物可能成功了 请使用 /pet -m 自己查询结果 ";
 
             } else {
 
@@ -48,7 +48,7 @@ public class UserPetsCommand implements Command {
 
 
         } else {
-            return "指令错误 现有指令 -l ";
+            return "指令错误 现有指令 /pet -l 查看所有宠物 \r\n /pet -m 查看出战宠物 \r\n /pet -m [id]   设置出战宠物 ";
         }
 
 

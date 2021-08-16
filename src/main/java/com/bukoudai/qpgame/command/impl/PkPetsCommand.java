@@ -36,7 +36,7 @@ public class PkPetsCommand implements Command {
 
         }
         if (atId == null) {
-            return "指令错误 现有指令 -l ";
+            return "pk指令错误 现有指令 /pk @xxx ";
         } else {
 
             UserPets mainPet = userPetsService.getMainPet(String.valueOf(sengId));

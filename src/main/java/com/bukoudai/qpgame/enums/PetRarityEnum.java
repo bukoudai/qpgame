@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * 稀有度
+ * @author zb
  */
 @AllArgsConstructor
 @Getter

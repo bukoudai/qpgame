@@ -34,7 +34,7 @@ public class FyInfo {
     //云市场分配的密钥Key
     @Value("${yysj.secret_key}")
     private static String secretKey;
-    private final static String source = "market";
+    private final static String SOURCE = "market";
 
     @Value("${yysj.fy_news_url}")
     private static String fy_news_url;
@@ -177,12 +177,12 @@ public class FyInfo {
             sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             String datetime = sdf.format(cd.getTime());
             // 签名
-            String auth = calcAuthorization(source, secretId, secretKey, datetime);
+            String auth = calcAuthorization(SOURCE, secretId, secretKey, datetime);
             // 请求方法
             String method = "GET";
             // 请求头
             Map<String, String> headers = new HashMap<>();
-            headers.put("X-Source", source);
+            headers.put("X-Source", SOURCE);
             headers.put("X-Date", datetime);
             headers.put("Authorization", auth);
 
