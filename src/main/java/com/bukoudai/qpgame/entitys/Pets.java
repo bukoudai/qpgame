@@ -34,6 +34,28 @@ public class Pets {
      * 稀有度  0 普通 1稀有 2 史诗 3传说
      */
     private Integer petRarity;
-
-
+    /**
+     * 血量
+     */
+    private Integer hp;
+    /**
+     * '物攻'
+     */
+    private Integer pAtk;
+    /**
+     * '法攻'
+     */
+    private Integer mAtk;
+    /**
+     * '物防'
+     */
+    private Integer pDef;
+    /**
+     * '魔防'
+     */
+    private Integer mDef;
+    /**
+     * '速度'
+     */
+    private Integer speed;
 }

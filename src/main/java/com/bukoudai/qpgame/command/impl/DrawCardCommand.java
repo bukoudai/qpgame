@@ -45,6 +45,9 @@ public class DrawCardCommand implements Command {
 
             if (NumberUtil.isInteger(s)) {
                 count = Integer.parseInt(s);
+                if (count<0){
+                    return "参数错误";
+                }
             }
 
         }

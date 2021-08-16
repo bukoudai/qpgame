@@ -47,5 +47,5 @@ public interface UserPetsService {
     * @param other
     * @return
     */
-   List<String> pk(UserPets one,UserPets other);
+   List<String> pk(UserPets one,String nick,UserPets other);
 }

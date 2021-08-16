@@ -34,6 +34,6 @@ public interface UserPetsMapper extends BaseMapper<UserPets> {
      * @param loginNo
      * @param userPetId
      */
-    @Update("update user_pets set is_main = '1' WHERE login_no =#{user.loginNo} and user_pet_id=#{userPets.userPetId}")
+    @Update("update user_pets set is_main = '1' WHERE login_no =#{loginNo} and user_pet_id=#{userPetId}")
     void setMainPets(String loginNo, String userPetId);
 }

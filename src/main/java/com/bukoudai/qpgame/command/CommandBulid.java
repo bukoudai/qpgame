@@ -26,8 +26,11 @@ public class CommandBulid {
     private static final String FYINFO_API_COMMAND_KEY="/疫情";
     private final FyInfoApiCommand fyInfoApiCommand;
 
-    private static final String USE_RPETS_COMMAND_KEY="/pet";
+    private static final String USER_PETS_COMMAND_KEY="/pet";
     private final UserPetsCommand userPetsCommand;
+
+    private static final String PK_RPETS_COMMAND_KEY="/pk";
+    private final PkPetsCommand pkPetsCommand;
 
 
     public Command bulid(MessageEvent event, long botId) {
@@ -44,8 +47,12 @@ public class CommandBulid {
             return fyInfoApiCommand;
         }
 
-        if (content.startsWith(USE_RPETS_COMMAND_KEY)) {
+        if (content.startsWith(USER_PETS_COMMAND_KEY)) {
             return userPetsCommand;
+        }
+
+        if (content.startsWith(PK_RPETS_COMMAND_KEY)) {
+            return pkPetsCommand;
         }
 
 
