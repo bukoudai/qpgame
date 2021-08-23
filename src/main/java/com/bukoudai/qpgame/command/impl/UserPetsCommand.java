@@ -16,6 +16,9 @@ public class UserPetsCommand implements Command {
 
 
     private final UserPetsService userPetsService;
+    private final static String LIST_KEY="-l";
+    private final static String MAIN_KEY="-m";
+    private final static String DESTROY_KEY="-d";
 
 
     @Override
@@ -29,28 +32,39 @@ public class UserPetsCommand implements Command {
             key1 = s1[1];
 
         }
-        if ("-l".equals(key1)) {
+        if (LIST_KEY.equals(key1)) {
             List<UserPets> userPets = userPetsService.queryUserPets(User.builder().loginNo(senderId).build());
             return userPets.toString();
-        } else if ("-m".equals(key1)) {
+        } else if (MAIN_KEY.equals(key1)) {
             String key2;
             if (s1.length > 2) {
                 key2 = s1[2];
                 userPetsService.setMainPets(String.valueOf(senderId), key2);
                 return "设置出战宠物可能成功了 请使用 /pet -m 自己查询结果 ";
-
             } else {
-
                 UserPets re = userPetsService.getMainPet(String.valueOf(senderId));
-
                 return re == null ? "未设置主要宠物" : re.toString();
             }
-
-
-        } else {
-            return "指令错误 现有指令 /pet -l 查看所有宠物 \r\n /pet -m 查看出战宠物 \r\n /pet -m [id]   设置出战宠物 ";
+        }else if (DESTROY_KEY.equals(key1)) {
+            String key2;
+            if (s1.length > 2) {
+                key2 = s1[2];
+                userPetsService.destroyUserPets(String.valueOf(senderId), key2);
+                return "成功";
+            } else {
+                userPetsService.destroyUserPets(String.valueOf(senderId), null);
+                return  "成功";
+            }
         }
+        return "指令错误 现有指令"+help();
+    }
 
-
+    @Override
+    public String help() {
+        return "/pet -l 查看所有宠物 \n" +
+                "/pet -m 查看出战宠物 \n" +
+                "/pet -m [id] 设置出战宠物 id为宠物id   \n"+
+                "/pet -d [id] 销毁指定宠物 id为宠物id   \n"+
+                "/pet -d 销毁除出战宠物外其他宠物 \n";
     }
 }

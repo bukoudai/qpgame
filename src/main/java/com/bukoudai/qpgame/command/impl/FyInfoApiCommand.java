@@ -42,4 +42,9 @@ public class FyInfoApiCommand implements Command {
         return msgB.toString();
 
     }
+
+    @Override
+    public String help() {
+        return null;
+    }
 }

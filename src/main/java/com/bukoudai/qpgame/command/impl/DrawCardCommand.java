@@ -27,6 +27,7 @@ public class DrawCardCommand implements Command {
     private final PetsMapper petsMapper;
     private final UserPetsMapper userPetsMapper;
 
+    private  final static int  oneConsumePoints=10;
     @Override
     public String execute(GroupMessageEvent event, long botId) {
         String reMsg;
@@ -47,13 +48,15 @@ public class DrawCardCommand implements Command {
                 count = Integer.parseInt(s);
                 if (count<0){
                     return "参数错误";
+                }else if(count>10){
+                    count =10;
                 }
             }
 
         }
 
-
-        if ((userPoints.getPoints() - count >= 0)) {
+        int consumePoints=count*oneConsumePoints;
+        if ((userPoints.getPoints() - consumePoints>= 0)) {
             LinkedList<Pets> pets = new LinkedList<>();
             for (int i = 0; i < count; i++) {
                 pets.add(petsMapper.roundGetOne());
@@ -68,7 +71,7 @@ public class DrawCardCommand implements Command {
                     }
             );
 
-            userPoints.setPoints(userPoints.getPoints() - count);
+            userPoints.setPoints(userPoints.getPoints() - consumePoints);
             userPointsMapper.updateById(userPoints);
 
             reMsg = StrUtil.format("结果:\r\n{}剩余积分:{} ", re, userPoints.getPoints());
@@ -80,5 +83,10 @@ public class DrawCardCommand implements Command {
         }
 
         return reMsg;
+    }
+
+    @Override
+    public String help() {
+        return "/抽卡 [n]";
     }
 }

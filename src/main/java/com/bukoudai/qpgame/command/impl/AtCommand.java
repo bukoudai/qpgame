@@ -19,4 +19,9 @@ public class AtCommand implements Command {
         return s;
 
     }
+
+    @Override
+    public String help() {
+        return null;
+    }
 }

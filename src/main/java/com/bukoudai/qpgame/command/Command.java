@@ -10,4 +10,7 @@ public interface Command {
      * 执行
      */
     String execute(GroupMessageEvent event, long botId);
+
+
+    String help();
 }

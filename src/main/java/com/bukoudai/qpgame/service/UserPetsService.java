@@ -32,7 +32,7 @@ public interface UserPetsService {
    /**
     * 销毁宠物返回积分
     */
-   void destroyUserPets(User user,UserPets userPets);
+   void destroyUserPets(String loginNo,String... userPetIds);
 
    /**
     * 查询主要宠物

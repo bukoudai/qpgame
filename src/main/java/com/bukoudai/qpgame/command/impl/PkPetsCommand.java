@@ -55,4 +55,9 @@ public class PkPetsCommand implements Command {
 
 
     }
+
+    @Override
+    public String help() {
+        return "/pk @xxx 与 xxx pk";
+    }
 }

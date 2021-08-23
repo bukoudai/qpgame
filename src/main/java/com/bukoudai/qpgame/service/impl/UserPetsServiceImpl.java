@@ -14,7 +14,6 @@ import com.bukoudai.qpgame.service.UserPetsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -45,9 +44,15 @@ public class UserPetsServiceImpl extends ServiceImpl<UserPetsMapper, UserPets> i
     }
 
     @Override
-    public void destroyUserPets(User user, UserPets userPets) {
+    public void destroyUserPets(String loginNo, String... userPetIds) {
 
+        if (userPetIds == null||userPetIds.length==0) {
+            baseMapper.destroyUserPets(loginNo, null);
+        }else {
+            baseMapper.destroyUserPets(loginNo ,userPetIds);
+        }
     }
+
 
     @Override
     public UserPets getMainPet(String loginNo) {

@@ -17,4 +17,9 @@ public class RollCommand implements Command {
         return String.valueOf(RandomUtil.randomInt(1010) + 97);
 
     }
+
+    @Override
+    public String help() {
+        return "/roll ";
+    }
 }

@@ -32,4 +32,9 @@ public class AddPointCommand implements Command {
         }
         return null;
     }
+
+    @Override
+    public String help() {
+        return null;
+    }
 }

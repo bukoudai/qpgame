@@ -2,6 +2,7 @@ package com.bukoudai.qpgame.command.impl;
 
 import cn.hutool.core.util.RandomUtil;
 import com.bukoudai.qpgame.command.Command;
+import com.bukoudai.qpgame.enums.CommandEnum;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import org.springframework.stereotype.Service;
@@ -14,9 +15,20 @@ public class HelpCommand implements Command {
     @Override
     public String execute(GroupMessageEvent event, long botId) {
 
+        StringBuilder help =new StringBuilder();
+
+        for (CommandEnum value : CommandEnum.values()) {
+            help.append(value.getKey()).append(" ").append(value.getLabel()).append("\r\n");
+
+        }
 
 
-        return String.valueOf(RandomUtil.randomInt(1010) + 97);
+        return help.toString();
 
+    }
+
+    @Override
+    public String help() {
+        return "/help 帮助";
     }
 }

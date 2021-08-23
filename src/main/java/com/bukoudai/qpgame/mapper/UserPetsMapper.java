@@ -5,7 +5,6 @@ import com.bukoudai.qpgame.entitys.User;
 import com.bukoudai.qpgame.entitys.UserPets;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -36,4 +35,10 @@ public interface UserPetsMapper extends BaseMapper<UserPets> {
      */
     @Update("update user_pets set is_main = '1' WHERE login_no =#{loginNo} and user_pet_id=#{userPetId}")
     void setMainPets(String loginNo, String userPetId);
+
+    @Update("<script> update user_pets set is_delete = '1' WHERE login_no =#{loginNo}  " +
+            "<if test=\"user_pet_id != null\">\n" +
+            "and user_pet_id=#{userPetId} " +
+            "</if> </script>")
+    void destroyUserPets(String loginNo, String[] userPetIds);
 }
