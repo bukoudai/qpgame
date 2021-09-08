@@ -1,5 +1,6 @@
 package com.bukoudai.qpgame.thirdapi;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HtmlUtil;
@@ -8,7 +9,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Value;
-import sun.misc.BASE64Encoder;
+
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -48,7 +49,7 @@ public class FyInfo {
         Key sKey = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), mac.getAlgorithm());
         mac.init(sKey);
         byte[] hash = mac.doFinal(signStr.getBytes(StandardCharsets.UTF_8));
-        String sig = new BASE64Encoder().encode(hash);
+        String sig = Base64.encode(hash);
 
         String auth = "hmac id=\"" + secretId + "\", algorithm=\"hmac-sha1\", headers=\"x-date x-source\", signature=\"" + sig + "\"";
         return auth;
