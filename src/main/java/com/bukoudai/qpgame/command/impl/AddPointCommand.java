@@ -5,7 +5,7 @@ import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.UserPoints;
 import com.bukoudai.qpgame.mapper.UserPointsMapper;
 import lombok.AllArgsConstructor;
-import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,7 +20,7 @@ public class AddPointCommand implements Command {
 
 
     @Override
-    public String execute(GroupMessageEvent event, long botId) {
+    public String execute(MessageEvent event, long botId) {
 
         long senderId = event.getSender().getId();
         UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));

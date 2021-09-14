@@ -8,6 +8,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.Mac;
@@ -26,20 +27,41 @@ import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
+@Component
 public class FyInfo {
     //云市场分配的密钥Id
-    @Value("${yysj.secret_id}")
     private static String secretId;
+
+    @Value("${yysj.secret_id}")
+    private void setSecretId(String secret_id) {
+        secretId = secret_id;
+    }
+
     //云市场分配的密钥Key
-    @Value("${yysj.secret_key}")
+
     private static String secretKey;
+
+    @Value("${yysj.secret_key}")
+    private void setSecretKey(String secret_key) {
+        secretKey = secret_key;
+    }
+
     private final static String SOURCE = "market";
 
-    @Value("${yysj.fy_news_url}")
+
     private static String fy_news_url;
-    @Value("${yysj.fy_details}")
+
+    @Value("${yysj.fy_news_url}")
+    private void setFyNewsUrl(String fyNewsUrl) {
+        fy_news_url = fyNewsUrl;
+    }
+
     private static String fy_details;
+
+    @Value("${yysj.fy_details}")
+    private void setFyDetails(String fyDetails) {
+        fy_details = fyDetails;
+    }
 
     public static String calcAuthorization(String source, String secretId, String secretKey, String datetime)
             throws NoSuchAlgorithmException, InvalidKeyException {
@@ -186,20 +208,15 @@ public class FyInfo {
             headers.put("X-Date", datetime);
             headers.put("Authorization", auth);
 
-            // 查询参数
-            Map<String, String> queryParams = new HashMap<>();
+
 
             // body参数
             Map<String, String> bodyParams = new HashMap<>();
 
             // url参数拼接
-            String url = urlFyInfo;
-            if (!queryParams.isEmpty()) {
-                url += "?" + urlencode(queryParams);
-            }
 
 
-            URL realUrl = new URL(url);
+            URL realUrl = new URL(urlFyInfo);
             HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
             conn.setConnectTimeout(5000);
             conn.setReadTimeout(5000);

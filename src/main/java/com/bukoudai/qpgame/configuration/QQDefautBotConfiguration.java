@@ -12,12 +12,16 @@ import net.mamoe.mirai.event.events.GroupMessageEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @author zb
+ */
 @Slf4j
 @Configuration
 @AllArgsConstructor
 public class QQDefautBotConfiguration {
 
     private final GroupMessageEventService groupMessageEventService;
+    private final FriendMessageConsumer friendMessageConsumer;
     private final BotsService botsService;
 
     @Bean("myBot")
@@ -26,7 +30,7 @@ public class QQDefautBotConfiguration {
         Bot bot = botsService.loginBot();
         if (bot != null) {
             long botId = bot.getId();
-            bot.getEventChannel().subscribeAlways(FriendMessageEvent.class, new FriendMessageConsumer());
+            bot.getEventChannel().subscribeAlways(FriendMessageEvent.class, friendMessageConsumer);
             bot.getEventChannel().subscribeAlways(GroupMessageEvent.class, (event) ->
                     BotUtils.sendMsg(event.getGroup(), event, groupMessageEventService.executCommand(event, botId))
             );

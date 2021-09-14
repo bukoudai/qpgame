@@ -35,6 +35,10 @@ public enum CommandEnum {
      */
     ROLL_COMMAND("/roll", RollCommand.class, "roll"),
     /**
+     * 翻译
+     */
+    TRANSLATE_COMMAND("/翻译", TranslateApiCommand.class, "翻译"),
+    /**
      * 疫情信息
      */
     FY_INFO_API_COMMAND("/疫情", FyInfoApiCommand.class, "疫情信息");

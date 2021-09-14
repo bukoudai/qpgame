@@ -5,7 +5,7 @@ import com.bukoudai.qpgame.entitys.User;
 import com.bukoudai.qpgame.entitys.UserPets;
 import com.bukoudai.qpgame.service.UserPetsService;
 import lombok.AllArgsConstructor;
-import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,10 +22,12 @@ public class UserPetsCommand implements Command {
 
 
     @Override
-    public String execute(GroupMessageEvent event, long botId) {
+    public String execute(MessageEvent event, long botId) {
 
         String s = event.getMessage().contentToString();
-        String[] s1 = s.split(" ");
+        String s2 = s.replaceFirst(" ", SPLIS_WORDS);
+
+        String[] s1 = s2.split(SPLIS_WORDS);
         long senderId = event.getSender().getId();
         String key1 = "";
         if (s1.length > 1) {
@@ -52,7 +54,7 @@ public class UserPetsCommand implements Command {
                 userPetsService.destroyUserPets(String.valueOf(senderId), key2);
                 return "成功";
             } else {
-                userPetsService.destroyUserPets(String.valueOf(senderId), null);
+                userPetsService.destroyUserPets(String.valueOf(senderId));
                 return  "成功";
             }
         }

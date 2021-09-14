@@ -3,7 +3,7 @@ package com.bukoudai.qpgame.command.impl;
 import cn.hutool.core.util.RandomUtil;
 import com.bukoudai.qpgame.command.Command;
 import lombok.AllArgsConstructor;
-import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,7 +12,7 @@ public class RollCommand implements Command {
 
 
     @Override
-    public String execute(GroupMessageEvent event, long botId) {
+    public String execute(MessageEvent event, long botId) {
 
         return String.valueOf(RandomUtil.randomInt(1010) + 97);
 

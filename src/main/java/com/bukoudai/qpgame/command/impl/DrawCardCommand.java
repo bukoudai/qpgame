@@ -12,7 +12,7 @@ import com.bukoudai.qpgame.mapper.PetsMapper;
 import com.bukoudai.qpgame.mapper.UserPetsMapper;
 import com.bukoudai.qpgame.mapper.UserPointsMapper;
 import lombok.AllArgsConstructor;
-import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -28,8 +28,9 @@ public class DrawCardCommand implements Command {
     private final UserPetsMapper userPetsMapper;
 
     private  final static int  oneConsumePoints=10;
+
     @Override
-    public String execute(GroupMessageEvent event, long botId) {
+    public String execute(MessageEvent event, long botId) {
         String reMsg;
         System.out.println(event);
         long senderId = event.getSender().getId();

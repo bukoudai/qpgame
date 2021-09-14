@@ -1,30 +1,34 @@
 package com.bukoudai.qpgame.msgservice;
 
-import cn.hutool.json.JSONObject;
-import com.bukoudai.qpgame.thirdapi.FyInfo;
+import com.bukoudai.qpgame.command.Command;
+import com.bukoudai.qpgame.command.CommandBuild;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.message.data.QuoteReply;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.util.function.Consumer;
 
+@Service
+
 public class FriendMessageConsumer implements Consumer<FriendMessageEvent> {
 
+    @Value("${bot.your_qq_number}")
+    private String yourQQNumber;
+    @Autowired
+    private CommandBuild commandBulid;
 
     @Override
     public void accept(FriendMessageEvent event) {
-        long yourQQNumber = 1111111;
-        if (event.getSender().getId() == yourQQNumber) {
+
+        if (Long.parseLong(yourQQNumber) == (event.getSender().getId())) {
             String msg = "";
-            if (event.getMessage().contentToString().startsWith("/疫情")) {
-                StringBuilder msgB = new StringBuilder("今日疫情信息:\r\n");
-
-                JSONObject fyCityDtail = FyInfo.getFyCityDtail("四川省", "成都");
-                msgB.append(fyCityDtail == null ? "" : fyCityDtail.toStringPretty());
-
-                msg = msgB.toString();
+            Command bulid = commandBulid.build(event, 1);
+            if (bulid != null) {
+                msg = bulid.execute(event, 1);
             }
-
 
             event.getSubject().sendMessage(new MessageChainBuilder()
                     .append(new QuoteReply(event.getMessage()))

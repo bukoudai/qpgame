@@ -5,8 +5,8 @@ import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.UserPets;
 import com.bukoudai.qpgame.service.UserPetsService;
 import lombok.AllArgsConstructor;
-import net.mamoe.mirai.contact.Member;
-import net.mamoe.mirai.event.events.GroupMessageEvent;
+import net.mamoe.mirai.contact.User;
+import net.mamoe.mirai.event.events.MessageEvent;
 import net.mamoe.mirai.message.data.At;
 import net.mamoe.mirai.message.data.SingleMessage;
 import org.springframework.stereotype.Service;
@@ -22,9 +22,9 @@ public class PkPetsCommand implements Command {
 
 
     @Override
-    public String execute(GroupMessageEvent event, long botId) {
+    public String execute(MessageEvent event, long botId) {
         Long atId = null;
-        Member member = event.getSender();
+        User member = event.getSender();
         long sengId = member.getId();
         for (SingleMessage singleMessage : event.getMessage()) {
 
