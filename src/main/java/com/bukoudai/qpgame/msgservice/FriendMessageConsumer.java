@@ -2,6 +2,7 @@ package com.bukoudai.qpgame.msgservice;
 
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.command.CommandBuild;
+import com.bukoudai.qpgame.mapper.JokesMapper;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.message.data.QuoteReply;
@@ -19,11 +20,24 @@ public class FriendMessageConsumer implements Consumer<FriendMessageEvent> {
     private String yourQQNumber;
     @Autowired
     private CommandBuild commandBulid;
+    @Autowired
+    private JokesMapper jokesMapper;
 
     @Override
     public void accept(FriendMessageEvent event) {
 
         if (Long.parseLong(yourQQNumber) == (event.getSender().getId())) {
+
+//            QueryWrapper<Jokes> wrapper = new QueryWrapper<Jokes>().eq("type", JokesTypeEnum.DAILY_PROVERB.getCode()) ;
+//            Integer integer = jokesMapper.selectCount(wrapper);
+//
+//            int i = RandomUtil.randomInt(integer);
+//            Page<Jokes> a =new Page<>(i,1);
+//            IPage<Jokes> jokesIPage = jokesMapper.selectPage(a, wrapper);
+//            Jokes jokes = jokesIPage.getRecords().get(0);
+//
+//
+//            String msg = jokes.getText();
             String msg = "";
             Command bulid = commandBulid.build(event, 1);
             if (bulid != null) {
