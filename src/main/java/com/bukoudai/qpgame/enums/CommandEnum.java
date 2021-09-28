@@ -39,6 +39,10 @@ public enum CommandEnum {
      */
     TRANSLATE_COMMAND("/翻译", TranslateApiCommand.class, "翻译"),
     /**
+     * 翻译
+     */
+    JOKES_COMMAND("/记录", JokesCommand.class, "记录"),
+    /**
      * 疫情信息
      */
     FY_INFO_API_COMMAND("/疫情", FyInfoApiCommand.class, "疫情信息");

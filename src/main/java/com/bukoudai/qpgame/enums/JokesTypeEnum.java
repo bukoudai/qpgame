@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum JokesTypeEnum {
 
 
-    DAILY_PROVERB(0, "每日格言"),
+    DAILY_PROVERB(0, "每日小贴士"),
     STORY(1, "故事"),
     DIALOGUE(2, "对话");
 
