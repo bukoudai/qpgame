@@ -15,27 +15,27 @@ import lombok.NoArgsConstructor;
 @TableName("bots")
 public class Bots {
 
-    /**
-     * 主键
-     */
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+  /**
+   * 主键
+   */
+  @TableId(type = IdType.AUTO)
+  private Integer id;
 
-    /**
-     * qq号
-     */
-    private Long loginNo;
-    /**
-     * 密码
-     */
-    private String loginPassword;
+  /**
+   * qq号
+   */
+  private Long loginNo;
+  /**
+   * 密码
+   */
+  private String loginPassword;
 
-    /**
-     * 设备信息
-     */
-    private String deviceJson;
-    private String solt;
-    private String isDel;
+  /**
+   * 设备信息
+   */
+  private String deviceJson;
+  private String solt;
+  private String isDel;
 
 
 }

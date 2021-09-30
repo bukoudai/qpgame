@@ -7,13 +7,13 @@ import net.mamoe.mirai.event.events.MessageEvent;
  */
 public interface Command {
 
-    String SPLIS_WORDS = "9s8j28x91js0ckx0e78vds";
+  String SPLIS_WORDS = "9s8j28x91js0ckx0e78vds";
 
-    /**
-     * 执行
-     */
-    String execute(MessageEvent event, long botId);
+  /**
+   * 执行
+   */
+  String execute(MessageEvent event, long botId);
 
 
-    String help();
+  String help();
 }

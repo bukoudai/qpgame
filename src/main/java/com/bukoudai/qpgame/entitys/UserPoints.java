@@ -15,21 +15,21 @@ import lombok.NoArgsConstructor;
 @TableName("user_points")
 public class UserPoints {
 
-    /**
-     * 主键
-     */
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+  /**
+   * 主键
+   */
+  @TableId(type = IdType.AUTO)
+  private Integer id;
 
-    /**
-     * 账号
-     */
-    private Long loginNo;
+  /**
+   * 账号
+   */
+  private Long loginNo;
 
-    /**
-     * 积分
-     */
-    private Integer points;
+  /**
+   * 积分
+   */
+  private Integer points;
 
 
 }

@@ -16,14 +16,14 @@ import org.springframework.stereotype.Service;
 public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements JokesService {
 
 
-    @Override
-    public Jokes randomOneByType(JokesTypeEnum type) {
-        Integer typeCode = type.getCode();
-        QueryWrapper<Jokes> wrapper = new QueryWrapper<Jokes>().eq("type", typeCode);
-        Integer integer = baseMapper.selectCount(wrapper);
+  @Override
+  public Jokes randomOneByType(JokesTypeEnum type) {
+    Integer typeCode = type.getCode();
+    QueryWrapper<Jokes> wrapper = new QueryWrapper<Jokes>().eq("type", typeCode);
+    Integer integer = baseMapper.selectCount(wrapper);
 
-        int i = RandomUtil.randomInt(integer);
-        return baseMapper.randomOneByType(typeCode, i);
+    int i = RandomUtil.randomInt(integer);
+    return baseMapper.randomOneByType(typeCode, i);
 
-    }
+  }
 }

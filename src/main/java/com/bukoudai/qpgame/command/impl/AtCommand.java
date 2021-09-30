@@ -9,19 +9,18 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class AtCommand implements Command {
-    private final static String[] WORD_LSIT = new String[]{"翻滚吧牛宝宝", "呵呵", "略略略","凸 -.- 凸","我是你爸爸"};
+  private static final String[] WORD_LSIT = new String[]{"翻滚吧牛宝宝", "呵呵", "略略略", "凸 -.- 凸", "我是你爸爸"};
 
-    @Override
-    public String execute(MessageEvent event, long botId) {
-        int length = WORD_LSIT.length;
-        int i = RandomUtil.randomInt(length);
-        String s = WORD_LSIT[i];
-        return s;
+  @Override
+  public String execute(MessageEvent event, long botId) {
+    int length = WORD_LSIT.length;
+    int i = RandomUtil.randomInt(length);
+    return WORD_LSIT[i];
 
-    }
+  }
 
-    @Override
-    public String help() {
-        return null;
-    }
+  @Override
+  public String help() {
+    return null;
+  }
 }

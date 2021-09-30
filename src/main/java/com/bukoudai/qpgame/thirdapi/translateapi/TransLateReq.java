@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class TransLateReq {
 
 
-    String text;
-    String source;
-    TransLateLangEnum target;
+  String text;
+  String source;
+  TransLateLangEnum target;
 }

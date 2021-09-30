@@ -31,7 +31,7 @@ spring:
       connection_timeout: 300000
       idle_timeout: 600000
       max_lifetime: 28770000
-    url:  jdbc:mysql://127.0.0.1:3306/qpgame?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/qpgame?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: root
 server:

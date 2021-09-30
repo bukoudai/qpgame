@@ -11,23 +11,23 @@ import org.springframework.stereotype.Service;
 public class HelpCommand implements Command {
 
 
-    @Override
-    public String execute(MessageEvent event, long botId) {
+  @Override
+  public String execute(MessageEvent event, long botId) {
 
-        StringBuilder help = new StringBuilder();
+    StringBuilder help = new StringBuilder();
 
-        for (CommandEnum value : CommandEnum.values()) {
-            help.append(value.getKey()).append(" ").append(value.getLabel()).append("\r\n");
-
-        }
-
-
-        return help.toString();
+    for (CommandEnum value : CommandEnum.values()) {
+      help.append(value.getKey()).append(" ").append(value.getLabel()).append("\r\n");
 
     }
 
-    @Override
-    public String help() {
-        return "/help 帮助";
-    }
+
+    return help.toString();
+
+  }
+
+  @Override
+  public String help() {
+    return "/help 帮助";
+  }
 }

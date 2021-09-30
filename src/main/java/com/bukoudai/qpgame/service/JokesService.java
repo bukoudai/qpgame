@@ -8,5 +8,5 @@ import com.bukoudai.qpgame.enums.JokesTypeEnum;
 
 public interface JokesService extends IService<Jokes> {
 
-    Jokes randomOneByType(JokesTypeEnum type);
+  Jokes randomOneByType(JokesTypeEnum type);
 }

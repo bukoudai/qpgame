@@ -21,24 +21,24 @@ import org.springframework.stereotype.Component;
 public class GrantWealTask {
 
 
-    private final Bot myBot;
-    private final JokesService jokesService;
+  private final Bot myBot;
+  private final JokesService jokesService;
 
-    /**
-     * 疫情定时发送
-     */
-    @Scheduled(cron = "${schedule.my_bot_task.test}")
-    public void test() {
+  /**
+   * 定时发送 todo 自动获取太阳升起的时间 然后根据时间执行
+   */
+  @Scheduled(cron = "${schedule.my_bot_task.test}")
+  public void test() {
 
-        ContactList<Group> groups = myBot.getGroups();
-        for (Group group : groups) {
-            Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB);
+    ContactList<Group> groups = myBot.getGroups();
+    for (Group group : groups) {
+      Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB);
 
-            StringBuilder msg = new StringBuilder();
-            msg.append(JokesTypeEnum.DAILY_PROVERB.getLabel()).append(":\r\n").append(jokes.getText());
-            BotUtils.sendMsg(group, null, msg.toString());
-        }
-
+      StringBuilder msg = new StringBuilder();
+      msg.append(JokesTypeEnum.DAILY_PROVERB.getLabel()).append(":\r\n").append(jokes.getText());
+      BotUtils.sendMsg(group, null, msg.toString());
     }
+
+  }
 
 }

@@ -5,7 +5,9 @@ import net.mamoe.mirai.Bot;
 
 public interface BotsService {
 
-   Bots getDefaultBot();
-   Bot loginBot(Bots bots);
-   Bot loginBot( );
+  Bots getDefaultBot();
+
+  Bot loginBot(Bots bots);
+
+  Bot loginBot();
 }

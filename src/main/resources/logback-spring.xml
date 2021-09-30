@@ -3,50 +3,50 @@
 	info will print when error occour -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
-	<springProperty scope="context" name="springAppName" source="spring.application.name"/>
-	<!-- 彩色日志 -->
-	<!-- 彩色日志依赖的渲染类 -->
-	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
-	<conversionRule conversionWord="wex"
-					converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
-	<conversionRule conversionWord="wEx"
-					converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
-	<!-- 彩色日志输出格式 -->
-	<property name="CONSOLE_LOG_PATTERN"
-			  value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:-}){magenta} %clr(-){faint} %clr([%thread]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
-	<!-- 日志输出格式 -->
-	<!--<property name="CONSOLE_LOG_PATTERN"-->
-	<!--value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %-40.40logger{39} - %msg %n" />-->
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!-- 彩色日志输出格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:-}){magenta} %clr(-){faint} %clr([%thread]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+    <!-- 日志输出格式 -->
+    <!--<property name="CONSOLE_LOG_PATTERN"-->
+    <!--value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %-40.40logger{39} - %msg %n" />-->
 
-	<!-- 本地日志属性配置 -->
-	<!-- 日志文件路径配置 -->
-	<property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}"/>
+    <!-- 本地日志属性配置 -->
+    <!-- 日志文件路径配置 -->
+    <property name="LOG_FILE" value="${BUILD_FOLDER:-build}/${springAppName}"/>
 
-	<property name="LOGSTASH_IP" value="127.0.0.1:8888"/>
+    <property name="LOGSTASH_IP" value="127.0.0.1:8888"/>
 
-	<property name="CUSTOM_FIELDS" value='{"appname":"testApp111"}'/>
+    <property name="CUSTOM_FIELDS" value='{"appname":"testApp111"}'/>
 
 
-	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>INFO</level>
-		</filter>
-		<encoder>
-			<pattern>${CONSOLE_LOG_PATTERN}</pattern>
-			<charset>utf8</charset>
-		</encoder>
-	</appender>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
 
-	<!--<appender name="logbackToES" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-			<level>INFO</level>
-		</filter>
-		<destination>127.0.0.1:8888</destination>
-		<encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
-			<timestampPattern>yyyy-MM-dd HH:mm:ss</timestampPattern>
-			<customFields>{"appname":"testApp111"}</customFields>
-		</encoder>
-		&lt;!&ndash;可以配置多个日志目的服务器，但是在同一个时间，只会将日志发送到其中一台机器，日志的发送顺序可以根据
+    <!--<appender name="logbackToES" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <destination>127.0.0.1:8888</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <timestampPattern>yyyy-MM-dd HH:mm:ss</timestampPattern>
+            <customFields>{"appname":"testApp111"}</customFields>
+        </encoder>
+        &lt;!&ndash;可以配置多个日志目的服务器，但是在同一个时间，只会将日志发送到其中一台机器，日志的发送顺序可以根据
         connectionStrategy配置的访问策略来进行发送。策略有3种
         preferPrimary 主备策略，将配置的目的服务器列表中的第一个作为主，其他作为备，某认发送第一个，
             当第一个连接失败的时候，会顺序连接后面的服务器进行发送；secondaryConnectionTTL配置的意思是间隔多少时间后，
@@ -55,7 +55,7 @@
             要求达到时间间隔后强制顺序连接下一个服务器
         random 随机策略 随机连接服务器，当一个失败后，随机连接下一个服务器；connectionTTL
             要求达到时间间隔后强制随机连接下一个服务器&ndash;&gt;
-		&lt;!&ndash; <destination>
+        &lt;!&ndash; <destination>
           destination1.domain.com:4560,
           destination2.domain.com:4560,
           destination3.domain.com:4560
@@ -71,29 +71,29 @@
                 <connectionTTL>5 minutes</connectionTTL>
                </random>
         </connectionStrategy>&ndash;&gt;
-		&lt;!&ndash;当所有的目的服务器都连接失败后，默认30秒后重新尝试连接，可以通过 reconnectionDelay 修改间隔时间
-			<reconnectionDelay>1 second</reconnectionDelay>
-		 &ndash;&gt;
-		&lt;!&ndash;默认的输出缓冲区大小是8192，可以通过writeBufferSize进行调整
+        &lt;!&ndash;当所有的目的服务器都连接失败后，默认30秒后重新尝试连接，可以通过 reconnectionDelay 修改间隔时间
+            <reconnectionDelay>1 second</reconnectionDelay>
+         &ndash;&gt;
+        &lt;!&ndash;默认的输出缓冲区大小是8192，可以通过writeBufferSize进行调整
             <writeBufferSize>16384</writeBufferSize>
          &ndash;&gt;
-	</appender>-->
+    </appender>-->
 
-	<!--   <include resource="com/zhangxx/commom/logback/logback-console.xml" />
+    <!--   <include resource="com/zhangxx/commom/logback/logback-console.xml" />
 
        <include resource="com/zhangxx/commom/logback/logback-file.xml" />-->
 
 
-	<!--  -->
+    <!--  -->
 
-	<!-- <logger name="com.zhangxx.demo" level="info" additivity="false">
+    <!-- <logger name="com.zhangxx.demo" level="info" additivity="false">
         <appender-ref ref="logbackToES" />
     </logger> -->
-	<!--<logger name="com.zhangxx.trade" level="error" additivity="false">
-		<appender-ref ref="fileLog" />
-	</logger>-->
+    <!--<logger name="com.zhangxx.trade" level="error" additivity="false">
+        <appender-ref ref="fileLog" />
+    </logger>-->
 
-	<root level="INFO">
-		<appender-ref ref="CONSOLE"/>
-	</root>
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
 </configuration>

@@ -22,22 +22,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class Knife4JConfiguration {
 
-    @Bean(value = "defaultApi")
-    public Docket defaultApi2() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("defaultApi")
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.bukoudai.qpgame"))
-                .paths(PathSelectors.any())
-                .build();
-    }
+  @Bean(value = "defaultApi")
+  public Docket defaultApi2() {
+    return new Docket(DocumentationType.SWAGGER_2)
+            .groupName("defaultApi")
+            .apiInfo(apiInfo())
+            .select()
+            .apis(RequestHandlerSelectors.basePackage("com.bukoudai.qpgame"))
+            .paths(PathSelectors.any())
+            .build();
+  }
 
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("平台")
-                .version("0.1")
-                .build();
-    }
+  private ApiInfo apiInfo() {
+    return new ApiInfoBuilder()
+            .title("平台")
+            .version("0.1")
+            .build();
+  }
 
 }

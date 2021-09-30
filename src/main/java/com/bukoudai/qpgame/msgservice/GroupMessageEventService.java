@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class GroupMessageEventService {
 
-    private final CommandBuild commandBulid;
+  private final CommandBuild commandBulid;
 
-    public String executCommand(MessageEvent event, long botId) {
+  public String executCommand(MessageEvent event, long botId) {
 
-        Command bulid = commandBulid.build(event, botId);
-        if (bulid == null) {
-            return null;
-        }
-        return bulid.execute(event, botId);
+    Command bulid = commandBulid.build(event, botId);
+    if (bulid == null) {
+      return null;
     }
+    return bulid.execute(event, botId);
+  }
 
 }

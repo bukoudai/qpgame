@@ -14,29 +14,28 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class BotsServiceImpl extends ServiceImpl<BotsMapper, Bots> implements BotsService, IService<Bots> {
-    @Override
-    public Bots getDefaultBot() {
-        Bots bots = baseMapper.selectOne(null);
-        return bots;
-    }
+  @Override
+  public Bots getDefaultBot() {
+    return baseMapper.selectOne(null);
+  }
 
-    @Override
-    public Bot loginBot(Bots bots) {
+  @Override
+  public Bot loginBot(Bots bots) {
 
 
-        String deviceJson = bots.getDeviceJson();
-        String loginPassword = bots.getLoginPassword();
-        Long loginNo = bots.getLoginNo();
-        BotConfiguration botConfiguration = new BotConfiguration();
-        botConfiguration.loadDeviceInfoJson(deviceJson);
-        Bot bot = BotFactory.INSTANCE.newBot(loginNo, loginPassword, botConfiguration);
+    String deviceJson = bots.getDeviceJson();
+    String loginPassword = bots.getLoginPassword();
+    Long loginNo = bots.getLoginNo();
+    BotConfiguration botConfiguration = new BotConfiguration();
+    botConfiguration.loadDeviceInfoJson(deviceJson);
+    Bot bot = BotFactory.INSTANCE.newBot(loginNo, loginPassword, botConfiguration);
 
-        bot.login();
-        return bot;
-    }
+    bot.login();
+    return bot;
+  }
 
-    @Override
-    public Bot loginBot() {
-        return loginBot(getDefaultBot());
-    }
+  @Override
+  public Bot loginBot() {
+    return loginBot(getDefaultBot());
+  }
 }

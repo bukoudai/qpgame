@@ -16,25 +16,25 @@ import org.springframework.stereotype.Service;
 public class AddPointCommand implements Command {
 
 
-    private final UserPointsMapper userPointsMapper;
+  private final UserPointsMapper userPointsMapper;
 
 
-    @Override
-    public String execute(MessageEvent event, long botId) {
+  @Override
+  public String execute(MessageEvent event, long botId) {
 
-        long senderId = event.getSender().getId();
-        UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));
-        if (userPoints == null) {
-            userPointsMapper.insert(UserPoints.builder().loginNo(senderId).points(1).build());
-        } else {
-            userPoints.setPoints(userPoints.getPoints() + 1);
-            userPointsMapper.updateById(userPoints);
-        }
-        return null;
+    long senderId = event.getSender().getId();
+    UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));
+    if (userPoints == null) {
+      userPointsMapper.insert(UserPoints.builder().loginNo(senderId).points(1).build());
+    } else {
+      userPoints.setPoints(userPoints.getPoints() + 1);
+      userPointsMapper.updateById(userPoints);
     }
+    return null;
+  }
 
-    @Override
-    public String help() {
-        return null;
-    }
+  @Override
+  public String help() {
+    return null;
+  }
 }

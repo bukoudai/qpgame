@@ -15,20 +15,20 @@ import lombok.NoArgsConstructor;
 @TableName("jokes")
 public class Jokes {
 
-    /**
-     * 主键
-     */
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+  /**
+   * 主键
+   */
+  @TableId(type = IdType.AUTO)
+  private Integer id;
 
-    /**
-     * 文本
-     */
-    private String text;
-    /**
-     * 类型
-     */
-    private int type;
+  /**
+   * 文本
+   */
+  private String text;
+  /**
+   * 类型
+   */
+  private int type;
 
 
 }

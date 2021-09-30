@@ -15,70 +15,68 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class TranslateApiCommand implements Command {
 
-    private final UserPointsMapper userPointsMapper;
-    private final static int oneConsumePoints = 10;
+  private final UserPointsMapper userPointsMapper;
+  private static final int ONE_CONSUME_POINTS = 10;
 
-    @Override
-    public String execute(MessageEvent event, long botId) {
-        String s = event.getMessage().contentToString();
-        long senderId = event.getSender().getId();
+  @Override
+  public String execute(MessageEvent event, long botId) {
+    String s = event.getMessage().contentToString();
+    long senderId = event.getSender().getId();
 
-        UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));
-        if (userPoints == null) {
-            return "积分不足";
-        }
-
-
-        if ((userPoints.getPoints() - oneConsumePoints < 0)) {
-            return "积分不足";
-        }
-        userPoints.setPoints(userPoints.getPoints() - oneConsumePoints);
-        userPointsMapper.updateById(userPoints);
-        String s2 = s.replaceFirst(" ", SPLIS_WORDS);
-
-        String[] s1 = s2.split(SPLIS_WORDS);
-        TransLateLangEnum defaultTarget;
-        String text = null;
-
-        if (s1.length > 1) {
-            //第一个参数 待翻译数据
-            text = s1[1];
-            if ("?".equals(text)) {
-                return help();
-            }
-        }
-        // 翻译目标语言
-        String cmd = s1[0];
-        String target = cmd.replaceAll(CommandEnum.TRANSLATE_COMMAND.getKey(), "");
-        TransLateLangEnum parse = TransLateLangEnum.parse(target);
-        String languageDetect = TranslateApiService.languageDetect(text);
-        if (parse != null) {
-            defaultTarget = parse;
-        } else {
-            //如果未指定语种 则中文自动翻译为英文 非中文翻译为中文
-            if (TransLateLangEnum.zh.getCode().equals(languageDetect)) {
-                defaultTarget = TransLateLangEnum.en;
-            } else {
-                defaultTarget = TransLateLangEnum.zh;
-            }
-        }
-
-        String msgB = TranslateApiService.textTranslate(text, languageDetect, defaultTarget);
-
-
-        return msgB;
-
+    UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));
+    if (userPoints == null) {
+      return "积分不足";
     }
 
-    @Override
-    public String help() {
-        StringBuilder help = new StringBuilder();
-        for (TransLateLangEnum value : TransLateLangEnum.values()) {
-            help.append(value.getLabel()).append("  ").append(value.getCode()).append("\n");
-        }
 
-
-        return "/翻译[lang] 带翻译文本 \n" +
-                "lang:\n" + help;
+    if ((userPoints.getPoints() - ONE_CONSUME_POINTS < 0)) {
+      return "积分不足";
     }
+    userPoints.setPoints(userPoints.getPoints() - ONE_CONSUME_POINTS);
+    userPointsMapper.updateById(userPoints);
+    String s2 = s.replaceFirst(" ", SPLIS_WORDS);
+
+    String[] s1 = s2.split(SPLIS_WORDS);
+    TransLateLangEnum defaultTarget;
+    String text = null;
+
+    if (s1.length > 1) {
+      //第一个参数 待翻译数据
+      text = s1[1];
+      if ("?".equals(text)) {
+        return help();
+      }
+    }
+    // 翻译目标语言
+    String cmd = s1[0];
+    String target = cmd.replaceAll(CommandEnum.TRANSLATE_COMMAND.getKey(), "");
+    TransLateLangEnum parse = TransLateLangEnum.parse(target);
+    String languageDetect = TranslateApiService.languageDetect(text);
+    if (parse != null) {
+      defaultTarget = parse;
+    } else {
+      //如果未指定语种 则中文自动翻译为英文 非中文翻译为中文
+      if (TransLateLangEnum.ZH.getCode().equals(languageDetect)) {
+        defaultTarget = TransLateLangEnum.EN;
+      } else {
+        defaultTarget = TransLateLangEnum.ZH;
+      }
+    }
+
+
+    return TranslateApiService.textTranslate(text, languageDetect, defaultTarget);
+
+  }
+
+  @Override
+  public String help() {
+    StringBuilder help = new StringBuilder();
+    for (TransLateLangEnum value : TransLateLangEnum.values()) {
+      help.append(value.getLabel()).append("  ").append(value.getCode()).append("\n");
+    }
+
+
+    return "/翻译[lang] 带翻译文本 \n" +
+            "lang:\n" + help;
+  }
 }

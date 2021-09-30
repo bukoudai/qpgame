@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 public class RollCommand implements Command {
 
 
-    @Override
-    public String execute(MessageEvent event, long botId) {
+  @Override
+  public String execute(MessageEvent event, long botId) {
 
-        return String.valueOf(RandomUtil.randomInt(1010) + 97);
+    return String.valueOf(RandomUtil.randomInt(1010) + 97);
 
-    }
+  }
 
-    @Override
-    public String help() {
-        return "/roll ";
-    }
+  @Override
+  public String help() {
+    return "/roll ";
+  }
 }

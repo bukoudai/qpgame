@@ -15,19 +15,19 @@ import lombok.NoArgsConstructor;
 @TableName("user")
 public class User {
 
-    /**
-     * 主键
-     */
-    @TableId(type = IdType.AUTO)
-    private Integer id;
+  /**
+   * 主键
+   */
+  @TableId(type = IdType.AUTO)
+  private Integer id;
 
-    /**
-     * 账号
-     */
-    private Long loginNo;
+  /**
+   * 账号
+   */
+  private Long loginNo;
 
-    private Integer role;
+  private Integer role;
 
-    private String nick;
+  private String nick;
 
 }

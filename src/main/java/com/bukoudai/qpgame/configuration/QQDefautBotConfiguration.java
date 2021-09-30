@@ -20,24 +20,24 @@ import org.springframework.context.annotation.Configuration;
 @AllArgsConstructor
 public class QQDefautBotConfiguration {
 
-    private final GroupMessageEventService groupMessageEventService;
-    private final FriendMessageConsumer friendMessageConsumer;
-    private final BotsService botsService;
+  private final GroupMessageEventService groupMessageEventService;
+  private final FriendMessageConsumer friendMessageConsumer;
+  private final BotsService botsService;
 
-    @Bean("myBot")
-    public Bot setDefaultBot() {
-        //登录用户
-        Bot bot = botsService.loginBot();
-        if (bot != null) {
-            long botId = bot.getId();
-            bot.getEventChannel().subscribeAlways(FriendMessageEvent.class, friendMessageConsumer);
-            bot.getEventChannel().subscribeAlways(GroupMessageEvent.class, (event) ->
-                    BotUtils.sendMsg(event.getGroup(), event, groupMessageEventService.executCommand(event, botId))
-            );
-            log.info("机器人启动");
-        }
-        return bot;
+  @Bean("myBot")
+  public Bot setDefaultBot() {
+    //登录用户
+    Bot bot = botsService.loginBot();
+    if (bot != null) {
+      long botId = bot.getId();
+      bot.getEventChannel().subscribeAlways(FriendMessageEvent.class, friendMessageConsumer);
+      bot.getEventChannel().subscribeAlways(GroupMessageEvent.class, event ->
+              BotUtils.sendMsg(event.getGroup(), event, groupMessageEventService.executCommand(event, botId))
+      );
+      log.info("机器人启动");
     }
+    return bot;
+  }
 
 
 }
