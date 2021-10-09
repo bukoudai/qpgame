@@ -7,6 +7,12 @@ import com.bukoudai.qpgame.enums.JokesTypeEnum;
 
 
 public interface JokesService extends IService<Jokes> {
-
-  Jokes randomOneByType(JokesTypeEnum type);
+  /**
+   * 获取一条随机记录
+   *
+   * @param type    记录类型
+   * @param logUsed 是否更新为已使用
+   * @return
+   */
+  Jokes randomOneByType(JokesTypeEnum type, boolean logUsed);
 }

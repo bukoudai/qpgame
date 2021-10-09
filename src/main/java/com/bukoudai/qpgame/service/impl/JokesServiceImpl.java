@@ -18,7 +18,7 @@ public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements
 
 
   @Override
-  public Jokes randomOneByType(JokesTypeEnum type) {
+  public Jokes randomOneByType(JokesTypeEnum type, boolean logUsed) {
     Integer typeCode = type.getCode();
     QueryWrapper<Jokes> wrapper = new QueryWrapper<Jokes>().eq("type", typeCode).eq("status", JokesStatusEnum.UNUSED.getCode());
     Integer integer = baseMapper.selectCount(wrapper);
@@ -29,9 +29,12 @@ public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements
 
     }
     int i = RandomUtil.randomInt(integer);
-    jokes = baseMapper.randomOneByType(typeCode, i);
-    jokes.setStatus(JokesStatusEnum.USED.getCode());
-    baseMapper.updateById(jokes);
+    jokes = baseMapper.randomOneByType(typeCode, JokesStatusEnum.UNUSED.getCode(), i);
+    if (logUsed) {
+      jokes.setStatus(JokesStatusEnum.USED.getCode());
+      baseMapper.updateById(jokes);
+
+    }
 
     return jokes;
 

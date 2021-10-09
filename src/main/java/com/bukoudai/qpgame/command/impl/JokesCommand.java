@@ -37,7 +37,7 @@ public class JokesCommand implements Command {
 
       return "success";
     } else {
-      Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB);
+      Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB, false);
       return jokes.getText();
     }
 

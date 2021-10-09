@@ -32,7 +32,7 @@ public class GrantWealTask {
 
     ContactList<Group> groups = myBot.getGroups();
     for (Group group : groups) {
-      Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB);
+      Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB, true);
 
       StringBuilder msg = new StringBuilder();
       msg.append(JokesTypeEnum.DAILY_PROVERB.getLabel()).append(":\r\n").append(jokes.getText());
