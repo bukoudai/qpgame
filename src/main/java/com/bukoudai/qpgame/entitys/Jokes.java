@@ -29,6 +29,10 @@ public class Jokes {
    * 类型
    */
   private int type;
+  /**
+   * 状态 0 未使用 1 已使用
+   */
+  private int status;
 
 
 }
