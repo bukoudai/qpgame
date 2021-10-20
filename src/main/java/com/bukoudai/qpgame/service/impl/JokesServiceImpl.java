@@ -27,9 +27,11 @@ public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements
       jokes = new Jokes();
       jokes.setText("没有存货了");
 
+    } else {
+      int i = RandomUtil.randomInt(integer);
+      jokes = baseMapper.randomOneByType(typeCode, JokesStatusEnum.UNUSED.getCode(), i);
     }
-    int i = RandomUtil.randomInt(integer);
-    jokes = baseMapper.randomOneByType(typeCode, JokesStatusEnum.UNUSED.getCode(), i);
+
     if (logUsed) {
       jokes.setStatus(JokesStatusEnum.USED.getCode());
       baseMapper.updateById(jokes);
