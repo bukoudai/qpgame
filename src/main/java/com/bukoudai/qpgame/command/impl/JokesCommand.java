@@ -35,7 +35,7 @@ public class JokesCommand implements Command {
       add.setType(JokesTypeEnum.DAILY_PROVERB.getCode());
       jokesService.save(add);
 
-      return "success";
+      return "存货+1";
     } else {
       Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB, false);
       return jokes.getText();
