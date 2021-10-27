@@ -41,6 +41,9 @@ public class JokesCommand implements Command {
       if (one == null) {
         user.setRole(3);
         user.setNick(nick);
+        userService.save(user);
+      } else {
+        user = one;
       }
 
       Integer role = user.getRole();
