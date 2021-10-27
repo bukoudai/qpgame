@@ -1,9 +1,12 @@
 package com.bukoudai.qpgame.command.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.Jokes;
+import com.bukoudai.qpgame.entitys.User;
 import com.bukoudai.qpgame.enums.JokesTypeEnum;
 import com.bukoudai.qpgame.service.JokesService;
+import com.bukoudai.qpgame.service.UserService;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
@@ -14,12 +17,14 @@ public class JokesCommand implements Command {
 
 
   private final JokesService jokesService;
+  private final UserService userService;
 
 
   @Override
   public String execute(MessageEvent event, long botId) {
 
-
+    long id = event.getSender().getId();
+    String nick = event.getSender().getNick();
     String s = event.getMessage().contentToString();
     String s2 = s.replaceFirst(" ", SPLIS_WORDS);
     String[] s1 = s2.split(SPLIS_WORDS);
@@ -30,6 +35,19 @@ public class JokesCommand implements Command {
       if ("?".equals(text)) {
         return help();
       }
+      User user = User.builder().loginNo(id).build();
+      QueryWrapper<User> wrapper = new QueryWrapper<>(user);
+      User one = userService.getOne(wrapper);
+      if (one == null) {
+        user.setRole(3);
+        user.setNick(nick);
+      }
+
+      Integer role = user.getRole();
+      if (role.compareTo(2) > 0) {
+        return "权限不足 请充值!";
+      }
+
       Jokes add = new Jokes();
       add.setText(text);
       add.setType(JokesTypeEnum.DAILY_PROVERB.getCode());
