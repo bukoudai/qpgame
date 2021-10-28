@@ -15,6 +15,9 @@ public class BotUtils {
 
       boolean doWhile = true;
       boolean needReply = true;
+      if (event.getSender().getId() == 80000000L) {
+        needReply = false;
+      }
       while (doWhile) {
         String msg = s;
         if (s.length() > 4999) {

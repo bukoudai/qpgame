@@ -64,7 +64,7 @@ public enum CommandEnum {
       if (command.startsWith("[不支持的消息#")) {
         int i = command.indexOf("]");
         if (i > -1) {
-          command = command.substring(i);
+          command = command.substring(i + 1);
           if ((command.startsWith(value.getKey()))) {
             return value;
           }
