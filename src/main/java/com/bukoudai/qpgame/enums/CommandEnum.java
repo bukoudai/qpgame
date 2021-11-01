@@ -40,7 +40,11 @@ public enum CommandEnum {
    */
   TRANSLATE_COMMAND("/翻译", TranslateApiCommand.class, "翻译"),
   /**
-   * 翻译
+   * 自动翻译
+   */
+  AUTO_TRANSLATE_COMMAND("/自动翻译", AutoTranslateCommand.class, "自动翻译"),
+  /**
+   * 记录
    */
   JOKES_COMMAND("/记录", JokesCommand.class, "记录"),
   LQSAY_COMMAND(CommandConfig.LQSAY_COMMAND_KEY, LqSayCommand.class, CommandConfig.LQSAY_COMMAND_KEY_LABEL),

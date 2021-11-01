@@ -12,4 +12,6 @@ public interface UserAbilityService extends IService<UserAbility> {
    * @return
    */
   public boolean checkAutoTranslation(long senderId);
+
+  public void openOrCloseAutoTranslation(long senderId, boolean open);
 }

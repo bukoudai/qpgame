@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 public class TranslateApiCommand implements Command {
 
   private final UserPointsMapper userPointsMapper;
-  private static final int ONE_CONSUME_POINTS = 10;
+  public static final int ONE_CONSUME_POINTS = 10;
 
   @Override
   public SendMsgVo execute(MessageEvent event, long botId) {

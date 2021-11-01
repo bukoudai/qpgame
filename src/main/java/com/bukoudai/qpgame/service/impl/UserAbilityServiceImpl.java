@@ -23,4 +23,30 @@ public class UserAbilityServiceImpl extends ServiceImpl<UserAbilityMapper, UserA
     }
     return AutoTranslationEnum.USED.equals(AutoTranslationEnum.parse(userAbility.getAutoTranslation()));
   }
+
+  @Override
+  public void openOrCloseAutoTranslation(long senderId, boolean open) {
+    UserAbility userAbility = baseMapper.selectOne(new QueryWrapper<>(UserAbility.builder().loginNo(senderId).build()));
+    boolean saveFlag = userAbility == null;
+
+    if (open) {
+      if (saveFlag) {
+        UserAbility build = UserAbility.builder().loginNo(senderId).autoTranslation(1).build();
+        baseMapper.insert(build);
+      } else {
+        userAbility.setAutoTranslation(1);
+        baseMapper.updateById(userAbility);
+      }
+    } else {
+
+      if (saveFlag) {
+        UserAbility build = UserAbility.builder().loginNo(senderId).autoTranslation(0).build();
+        baseMapper.insert(build);
+      } else {
+        userAbility.setAutoTranslation(0);
+        baseMapper.updateById(userAbility);
+      }
+    }
+
+  }
 }

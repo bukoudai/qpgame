@@ -73,5 +73,21 @@ public class TranslateApiService {
     return reText;
   }
 
+  public static String autoTextTranslate(String text) {
+    String reText;
+    TransLateLangEnum defaultTarget;
+    String languageDetect = TranslateApiService.languageDetect(text);
+
+    //如果未指定语种 则中文自动翻译为英文 非中文翻译为中文
+    if (TransLateLangEnum.ZH.getCode().equals(languageDetect)) {
+      defaultTarget = TransLateLangEnum.EN;
+    } else {
+      defaultTarget = TransLateLangEnum.ZH;
+    }
+
+    reText = textTranslate(text, languageDetect, defaultTarget);
+    return reText;
+  }
+
 
 }

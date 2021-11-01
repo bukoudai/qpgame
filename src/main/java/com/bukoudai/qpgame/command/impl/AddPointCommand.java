@@ -8,6 +8,7 @@ import com.bukoudai.qpgame.entitys.UserTextContentLog;
 import com.bukoudai.qpgame.mapper.UserPointsMapper;
 import com.bukoudai.qpgame.mapper.UserTextContentLogMapper;
 import com.bukoudai.qpgame.service.UserAbilityService;
+import com.bukoudai.qpgame.thirdapi.translateapi.TranslateApiService;
 import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.contact.User;
@@ -44,19 +45,22 @@ public class AddPointCommand implements Command {
 
 
     //记录日志
+    String text = event.getMessage().contentToString();
     UserTextContentLog.UserTextContentLogBuilder logBuilder = UserTextContentLog.builder()
             .creatTime(DateUtil.format(new Date(), "HHmmss"))
             .creatDay(DateUtil.format(new Date(), "yyyyMMdd"))
-            .textContent(event.getMessage().contentToString())
+            .textContent(text)
             .user(String.valueOf(senderId)).nick(nick);
     userTextContentLogMapper.insert(logBuilder.build());
     //判断是否开启实时翻译
     if (UserAbilityService.checkAutoTranslation(senderId)) {
-
+      if (userPoints == null || (userPoints.getPoints() - TranslateApiCommand.ONE_CONSUME_POINTS < 0)) {
+        return null;
+      }
+      userPoints.setPoints(userPoints.getPoints() - TranslateApiCommand.ONE_CONSUME_POINTS);
+      userPointsMapper.updateById(userPoints);
+      return new SendMsgVo(TranslateApiService.autoTextTranslate(text), false);
     }
-
-
-    // 开启实时翻译则翻译
     //未开启 则判断是否非中文
 
     return null;
