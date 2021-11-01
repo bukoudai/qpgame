@@ -4,6 +4,7 @@ import com.bukoudai.qpgame.entitys.Jokes;
 import com.bukoudai.qpgame.enums.JokesTypeEnum;
 import com.bukoudai.qpgame.service.JokesService;
 import com.bukoudai.qpgame.utlis.BotUtils;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.Bot;
@@ -36,7 +37,7 @@ public class GrantWealTask {
 
       StringBuilder msg = new StringBuilder();
       msg.append(JokesTypeEnum.DAILY_PROVERB.getLabel()).append(":\r\n").append(jokes.getText());
-      BotUtils.sendMsg(group, null, msg.toString());
+      BotUtils.sendMsg(group, null, SendMsgVo.msg(msg.toString()));
     }
 
   }

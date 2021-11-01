@@ -7,6 +7,7 @@ import com.bukoudai.qpgame.enums.CommandEnum;
 import com.bukoudai.qpgame.enums.TransLateLangEnum;
 import com.bukoudai.qpgame.mapper.UserPointsMapper;
 import com.bukoudai.qpgame.thirdapi.translateapi.TranslateApiService;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
@@ -19,18 +20,18 @@ public class TranslateApiCommand implements Command {
   private static final int ONE_CONSUME_POINTS = 10;
 
   @Override
-  public String execute(MessageEvent event, long botId) {
+  public SendMsgVo execute(MessageEvent event, long botId) {
     String s = event.getMessage().contentToString();
     long senderId = event.getSender().getId();
 
     UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));
     if (userPoints == null) {
-      return "积分不足";
+      return SendMsgVo.msg("积分不足");
     }
 
 
     if ((userPoints.getPoints() - ONE_CONSUME_POINTS < 0)) {
-      return "积分不足";
+      return SendMsgVo.msg("积分不足");
     }
     userPoints.setPoints(userPoints.getPoints() - ONE_CONSUME_POINTS);
     userPointsMapper.updateById(userPoints);
@@ -44,7 +45,8 @@ public class TranslateApiCommand implements Command {
       //第一个参数 待翻译数据
       text = s1[1];
       if ("?".equals(text)) {
-        return help();
+
+        return SendMsgVo.msg(help());
       }
     }
     // 翻译目标语言
@@ -63,8 +65,8 @@ public class TranslateApiCommand implements Command {
       }
     }
 
+    return SendMsgVo.msg(TranslateApiService.textTranslate(text, languageDetect, defaultTarget));
 
-    return TranslateApiService.textTranslate(text, languageDetect, defaultTarget);
 
   }
 

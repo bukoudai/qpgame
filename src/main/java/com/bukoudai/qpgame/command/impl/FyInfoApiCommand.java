@@ -4,6 +4,7 @@ import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.thirdapi.FyInfo;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ public class FyInfoApiCommand implements Command {
 
 
   @Override
-  public String execute(MessageEvent event, long botId) {
+  public SendMsgVo execute(MessageEvent event, long botId) {
     String s = event.getMessage().contentToString();
     String s2 = s.replaceFirst(" ", SPLIS_WORDS);
 
@@ -41,7 +42,7 @@ public class FyInfoApiCommand implements Command {
     }
 
 
-    return msgB.toString();
+    return SendMsgVo.msg(msgB.toString());
 
   }
 

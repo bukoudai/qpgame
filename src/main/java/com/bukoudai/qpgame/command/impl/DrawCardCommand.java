@@ -11,6 +11,7 @@ import com.bukoudai.qpgame.enums.PetRarityEnum;
 import com.bukoudai.qpgame.mapper.PetsMapper;
 import com.bukoudai.qpgame.mapper.UserPetsMapper;
 import com.bukoudai.qpgame.mapper.UserPointsMapper;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.event.events.MessageEvent;
@@ -35,7 +36,7 @@ public class DrawCardCommand implements Command {
   private static final int ONE_CONSUME_POINTS = 10;
 
   @Override
-  public String execute(MessageEvent event, long botId) {
+  public SendMsgVo execute(MessageEvent event, long botId) {
     String reMsg;
     log.info(JSONUtil.toJsonStr(event));
     long senderId = event.getSender().getId();
@@ -43,7 +44,7 @@ public class DrawCardCommand implements Command {
     UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));
     String content = event.getMessage().contentToString();
     if (userPoints == null) {
-      return "积分不足";
+      return SendMsgVo.msg("积分不足");
     }
     String[] split = content.split(" ");
     int count = 1;
@@ -53,7 +54,7 @@ public class DrawCardCommand implements Command {
       if (NumberUtil.isInteger(s)) {
         count = Integer.parseInt(s);
         if (count < 0) {
-          return "参数错误";
+          return SendMsgVo.msg("参数错误");
         } else if (count > 10) {
           count = 10;
         }
@@ -88,7 +89,7 @@ public class DrawCardCommand implements Command {
 
     }
 
-    return reMsg;
+    return SendMsgVo.msg(reMsg);
   }
 
   @Override

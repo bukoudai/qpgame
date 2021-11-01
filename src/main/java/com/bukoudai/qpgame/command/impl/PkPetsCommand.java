@@ -3,6 +3,7 @@ package com.bukoudai.qpgame.command.impl;
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.UserPets;
 import com.bukoudai.qpgame.service.UserPetsService;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.contact.User;
 import net.mamoe.mirai.event.events.MessageEvent;
@@ -23,7 +24,7 @@ public class PkPetsCommand implements Command {
 
 
   @Override
-  public String execute(MessageEvent event, long botId) {
+  public SendMsgVo execute(MessageEvent event, long botId) {
     Long atId = null;
     User member = event.getSender();
     long sengId = member.getId();
@@ -37,20 +38,23 @@ public class PkPetsCommand implements Command {
 
     }
     if (atId == null) {
-      return "pk指令错误 现有指令 /pk @xxx ";
+      return SendMsgVo.msg("pk指令错误 现有指令 /pk @xxx ");
+
     } else {
 
       UserPets mainPet = userPetsService.getMainPet(String.valueOf(sengId));
       if (mainPet == null) {
-        return "你还没有宠物";
+        return SendMsgVo.msg("你还没有宠物");
+
       }
       UserPets otherPet = userPetsService.getMainPet(String.valueOf(atId));
       if (otherPet == null) {
-        return "对方没有宠物";
+        return SendMsgVo.msg("对方没有宠物");
+
       }
       List<String> pk = userPetsService.pk(mainPet, member.getNick(), otherPet);
+      return SendMsgVo.msg(join("\r\n", pk));
 
-      return join("\r\n", pk);
     }
 
 

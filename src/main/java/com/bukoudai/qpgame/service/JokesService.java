@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.bukoudai.qpgame.entitys.Jokes;
 import com.bukoudai.qpgame.enums.JokesTypeEnum;
 
+import java.util.List;
+
 
 public interface JokesService extends IService<Jokes> {
   /**
@@ -15,4 +17,6 @@ public interface JokesService extends IService<Jokes> {
    * @return
    */
   Jokes randomOneByType(JokesTypeEnum type, boolean logUsed);
+
+  List<Jokes> queryListByType(JokesTypeEnum type);
 }

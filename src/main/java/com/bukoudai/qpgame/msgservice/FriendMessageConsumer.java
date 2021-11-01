@@ -3,6 +3,7 @@ package com.bukoudai.qpgame.msgservice;
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.command.CommandBuild;
 import com.bukoudai.qpgame.mapper.JokesMapper;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.message.data.QuoteReply;
@@ -29,16 +30,23 @@ public class FriendMessageConsumer implements Consumer<FriendMessageEvent> {
     if (Long.parseLong(yourQQNumber) == (event.getSender().getId())) {
 
       String msg = "";
+      SendMsgVo msgVo = new SendMsgVo("", true);
       Command bulid = commandBulid.build(event, 1);
       if (bulid != null) {
-        msg = bulid.execute(event, 1);
+        msgVo = bulid.execute(event, 1);
+        msg = msgVo.getMessage();
+      }
+      MessageChainBuilder append = new MessageChainBuilder()
+              .append(msg);
+
+      if (msgVo.getNeedReply()) {
+        append.append(new QuoteReply(event.getMessage()));
       }
 
-      event.getSubject().sendMessage(new MessageChainBuilder()
-              .append(new QuoteReply(event.getMessage()))
-              .append(msg)
-              .build()
-      );
+
+      event.getSubject().sendMessage(append.build());
+
+
     }
   }
 }

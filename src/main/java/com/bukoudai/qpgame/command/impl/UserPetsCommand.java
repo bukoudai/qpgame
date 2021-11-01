@@ -4,6 +4,7 @@ import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.User;
 import com.bukoudai.qpgame.entitys.UserPets;
 import com.bukoudai.qpgame.service.UserPetsService;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class UserPetsCommand implements Command {
 
 
   @Override
-  public String execute(MessageEvent event, long botId) {
+  public SendMsgVo execute(MessageEvent event, long botId) {
 
     String s = event.getMessage().contentToString();
     String s2 = s.replaceFirst(" ", SPLIS_WORDS);
@@ -36,29 +37,35 @@ public class UserPetsCommand implements Command {
     }
     if (LIST_KEY.equals(key1)) {
       List<UserPets> userPets = userPetsService.queryUserPets(User.builder().loginNo(senderId).build());
-      return userPets.toString();
+
+      return SendMsgVo.msg(userPets.toString());
     } else if (MAIN_KEY.equals(key1)) {
       String key2;
       if (s1.length > 2) {
         key2 = s1[2];
         userPetsService.setMainPets(String.valueOf(senderId), key2);
-        return "设置出战宠物可能成功了 请使用 /pet -m 自己查询结果 ";
+
+        return SendMsgVo.msg("设置出战宠物可能成功了 请使用 /pet -m 自己查询结果 ");
+
       } else {
         UserPets re = userPetsService.getMainPet(String.valueOf(senderId));
-        return re == null ? "未设置主要宠物" : re.toString();
+
+        return SendMsgVo.msg(re == null ? "未设置主要宠物" : re.toString());
       }
     } else if (DESTROY_KEY.equals(key1)) {
       String key2;
       if (s1.length > 2) {
         key2 = s1[2];
         userPetsService.destroyUserPets(String.valueOf(senderId), key2);
-        return "成功";
+
+        return SendMsgVo.msg("成功");
       } else {
         userPetsService.destroyUserPets(String.valueOf(senderId));
-        return "成功";
+        return SendMsgVo.msg("成功");
       }
     }
-    return "指令错误 现有指令" + help();
+    return SendMsgVo.msg("指令错误 现有指令" + help());
+
   }
 
   @Override

@@ -32,6 +32,8 @@ public class QQDefautBotConfiguration {
       long botId = bot.getId();
       bot.getEventChannel().subscribeAlways(FriendMessageEvent.class, friendMessageConsumer);
       bot.getEventChannel().subscribeAlways(GroupMessageEvent.class, event ->
+
+
               BotUtils.sendMsg(event.getGroup(), event, groupMessageEventService.executCommand(event, botId))
       );
       log.info("机器人启动");

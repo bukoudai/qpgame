@@ -2,6 +2,7 @@ package com.bukoudai.qpgame.command.impl;
 
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.enums.CommandEnum;
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.event.events.MessageEvent;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ public class HelpCommand implements Command {
 
 
   @Override
-  public String execute(MessageEvent event, long botId) {
+  public SendMsgVo execute(MessageEvent event, long botId) {
 
     StringBuilder help = new StringBuilder();
 
@@ -22,7 +23,7 @@ public class HelpCommand implements Command {
     }
 
 
-    return help.toString();
+    return SendMsgVo.msg(help.toString());
 
   }
 

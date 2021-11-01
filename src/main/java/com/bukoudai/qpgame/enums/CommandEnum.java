@@ -3,6 +3,7 @@ package com.bukoudai.qpgame.enums;
 
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.command.impl.*;
+import com.bukoudai.qpgame.configuration.CommandConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -42,6 +43,7 @@ public enum CommandEnum {
    * 翻译
    */
   JOKES_COMMAND("/记录", JokesCommand.class, "记录"),
+  LQSAY_COMMAND(CommandConfig.LQSAY_COMMAND_KEY, LqSayCommand.class, CommandConfig.LQSAY_COMMAND_KEY_LABEL),
   /**
    * 疫情信息
    */

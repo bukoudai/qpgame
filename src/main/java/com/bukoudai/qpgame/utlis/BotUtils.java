@@ -1,6 +1,7 @@
 package com.bukoudai.qpgame.utlis;
 
 
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.event.events.GroupMessageEvent;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -8,13 +9,13 @@ import net.mamoe.mirai.message.data.QuoteReply;
 import org.apache.commons.lang3.StringUtils;
 
 public class BotUtils {
-  public static void sendMsg(Group group, GroupMessageEvent event, String s) {
+  public static void sendMsg(Group group, GroupMessageEvent event, SendMsgVo msgVo) {
 
 
-    if (StringUtils.isNotBlank(s)) {
-
+    if (msgVo != null && StringUtils.isNotBlank(msgVo.getMessage())) {
+      String s = msgVo.getMessage();
       boolean doWhile = true;
-      boolean needReply = true;
+      boolean needReply = msgVo.getNeedReply();
 
       if (event == null || event.getSender().getId() == 80000000L) {
         needReply = false;

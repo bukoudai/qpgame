@@ -1,5 +1,6 @@
 package com.bukoudai.qpgame.command;
 
+import com.bukoudai.qpgame.vo.SendMsgVo;
 import net.mamoe.mirai.event.events.MessageEvent;
 
 /**
@@ -12,7 +13,7 @@ public interface Command {
   /**
    * 执行
    */
-  String execute(MessageEvent event, long botId);
+  SendMsgVo execute(MessageEvent event, long botId);
 
 
   String help();

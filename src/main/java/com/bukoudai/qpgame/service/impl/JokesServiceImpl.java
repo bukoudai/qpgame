@@ -12,6 +12,8 @@ import com.bukoudai.qpgame.service.JokesService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements JokesService {
@@ -40,5 +42,12 @@ public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements
 
     return jokes;
 
+  }
+
+  @Override
+  public List<Jokes> queryListByType(JokesTypeEnum type) {
+    Integer typeCode = type.getCode();
+    QueryWrapper<Jokes> wrapper = new QueryWrapper<Jokes>().eq("type", typeCode).eq("status", JokesStatusEnum.UNUSED.getCode());
+    return baseMapper.selectList(wrapper);
   }
 }
