@@ -27,7 +27,7 @@ public class AddPointCommand implements Command {
 
   private final UserPointsMapper userPointsMapper;
   private final UserTextContentLogMapper userTextContentLogMapper;
-  private final UserAbilityService UserAbilityService;
+  private final UserAbilityService userAbilityService;
 
 
   @Override
@@ -53,7 +53,7 @@ public class AddPointCommand implements Command {
             .user(String.valueOf(senderId)).nick(nick);
     userTextContentLogMapper.insert(logBuilder.build());
     //判断是否开启实时翻译
-    if (UserAbilityService.checkAutoTranslation(senderId)) {
+    if (userAbilityService.checkAutoTranslation(senderId)) {
       if (userPoints == null || (userPoints.getPoints() - TranslateApiCommand.ONE_CONSUME_POINTS < 0)) {
         return null;
       }
