@@ -36,7 +36,7 @@ public class GrantWealTask {
       Jokes jokes = jokesService.randomOneByType(JokesTypeEnum.DAILY_PROVERB, true);
 
       StringBuilder msg = new StringBuilder();
-      msg.append(JokesTypeEnum.DAILY_PROVERB.getLabel()).append(":\r\n").append(jokes.getText());
+      msg.append(JokesTypeEnum.parse(jokes.getType()).getLabel()).append(":\r\n").append(jokes.getText());
       BotUtils.sendMsg(group, null, SendMsgVo.msg(msg.toString()));
     }
 

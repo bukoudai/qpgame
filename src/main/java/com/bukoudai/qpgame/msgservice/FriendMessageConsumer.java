@@ -2,7 +2,6 @@ package com.bukoudai.qpgame.msgservice;
 
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.command.CommandBuild;
-import com.bukoudai.qpgame.mapper.JokesMapper;
 import com.bukoudai.qpgame.vo.SendMsgVo;
 import net.mamoe.mirai.event.events.FriendMessageEvent;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -21,8 +20,7 @@ public class FriendMessageConsumer implements Consumer<FriendMessageEvent> {
   private String yourQQNumber;
   @Autowired
   private CommandBuild commandBulid;
-  @Autowired
-  private JokesMapper jokesMapper;
+
 
   @Override
   public void accept(FriendMessageEvent event) {
@@ -43,9 +41,7 @@ public class FriendMessageConsumer implements Consumer<FriendMessageEvent> {
         append.append(new QuoteReply(event.getMessage()));
       }
 
-
       event.getSubject().sendMessage(append.build());
-
 
     }
   }
