@@ -31,6 +31,7 @@ public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements
     Integer integer = baseMapper.selectCount(wrapper);
     Jokes jokes;
     if (integer.equals(0)) {
+      //自己存的没有了 则从接口获取
       jokes = new Jokes();
 
       JokesTypeEnum byWeek = JokesTypeEnum.getByWeek();

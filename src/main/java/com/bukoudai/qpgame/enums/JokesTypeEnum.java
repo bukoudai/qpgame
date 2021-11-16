@@ -43,6 +43,11 @@ public enum JokesTypeEnum {
 
   }
 
+  /**
+   * 根据时间获取 类型
+   *
+   * @return
+   */
   public static JokesTypeEnum getByWeek() {
 
     for (JokesTypeEnum value : JokesTypeEnum.values()) {
