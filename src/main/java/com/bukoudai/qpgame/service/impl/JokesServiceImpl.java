@@ -2,6 +2,7 @@ package com.bukoudai.qpgame.service.impl;
 
 
 import cn.hutool.core.util.RandomUtil;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,12 +14,13 @@ import com.bukoudai.qpgame.mapper.JokesMapper;
 import com.bukoudai.qpgame.service.JokesService;
 import com.bukoudai.qpgame.thirdapi.tianapi.TianapiProcess;
 import com.bukoudai.qpgame.vo.TianApiResVo;
-import com.bukoudai.qpgame.vo.TianZMSCVo;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements JokesService {
@@ -36,11 +38,12 @@ public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements
 
       JokesTypeEnum byWeek = JokesTypeEnum.getByWeek();
       TianApiEnum tianApiEnum = TianApiEnum.parse(byWeek.getCode());
+      log.info(" url {}: ", tianApiEnum.getUrl());
       String execute = TianapiProcess.execute(tianApiEnum);
+      log.info(" res:{}: ", execute);
+      TianApiResVo<JSONObject> tianZMSCVo = JSONUtil.toBean(execute, TianApiResVo.class);
 
-      TianApiResVo<TianZMSCVo> tianZMSCVo = JSONUtil.toBean(execute, TianApiResVo.class);
-
-      String content = tianZMSCVo.getNewslist().get(0).getContent();
+      String content = tianZMSCVo.getNewslist().get(0).getStr("content");
       jokes.setText(content);
       jokes.setType(tianApiEnum.getCode());
 

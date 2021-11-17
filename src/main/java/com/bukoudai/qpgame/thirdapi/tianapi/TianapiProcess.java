@@ -4,15 +4,17 @@ import cn.hutool.http.HttpUtil;
 import com.bukoudai.qpgame.enums.JokesTypeEnum;
 import com.bukoudai.qpgame.enums.TianApiEnum;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 
+@Component
 public class TianapiProcess {
-  public static Long appid;
+  public static String appid;
 
   @Value("${txapi.key}")
   private void setAppid(String appId) {
-    appid = Long.parseLong(appId);
+    appid = appId;
   }
 
 
