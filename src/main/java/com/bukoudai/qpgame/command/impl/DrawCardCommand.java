@@ -1,7 +1,6 @@
 package com.bukoudai.qpgame.command.impl;
 
 import cn.hutool.core.util.NumberUtil;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.bukoudai.qpgame.command.Command;
 import com.bukoudai.qpgame.entitys.Pets;
@@ -38,7 +37,7 @@ public class DrawCardCommand implements Command {
   @Override
   public SendMsgVo execute(MessageEvent event, long botId) {
     String reMsg;
-    log.info(JSONUtil.toJsonStr(event));
+
     long senderId = event.getSender().getId();
 
     UserPoints userPoints = userPointsMapper.selectOne(new QueryWrapper<>(UserPoints.builder().loginNo(senderId).build()));
