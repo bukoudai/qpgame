@@ -12,10 +12,19 @@ public class CommandConfig {
   public static String LQSAY_COMMAND_KEY_SUCCESSMSG;
   public static String LQSAY_COMMAND_KEY_LABEL;
 
+  public static String OPENAI_API_KEY;
+
+
+
+
 
   @Value("${command.key.lqsay.key}")
   public void setLqsayCommandKey(String commandKey) {
     LQSAY_COMMAND_KEY = commandKey;
+  }
+  @Value("${command.key.openai.key}")
+  public void setOpenAIAPIKEY(String commandKey) {
+    OPENAI_API_KEY = commandKey;
   }
 
   @Value("${command.key.lqsay.helpmsg}")
