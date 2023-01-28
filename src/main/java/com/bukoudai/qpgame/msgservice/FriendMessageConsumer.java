@@ -32,6 +32,9 @@ public class FriendMessageConsumer implements Consumer<FriendMessageEvent> {
       Command bulid = commandBulid.build(event, 1);
       if (bulid != null) {
         msgVo = bulid.execute(event, 1);
+        if (msgVo == null) {
+            msgVo = new SendMsgVo("未知命令", true);
+        }
         msg = msgVo.getMessage();
       }
       MessageChainBuilder append = new MessageChainBuilder()
