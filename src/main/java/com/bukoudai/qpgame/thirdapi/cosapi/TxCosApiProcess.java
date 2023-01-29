@@ -96,6 +96,7 @@ public class TxCosApiProcess {
             //https://qq-bot-1257067547.cos.ap-guangzhou.myqcloud.com/qq-bot-01/4483AD41-5A69-E07F-CD2D-433358DDF29D.gif
             String picUrl = "https://" + uploadResult.getBucketName() + ".cos." +COS_REGION + ".myqcloud.com/" + uploadResult.getKey();
             result.setUrl(picUrl);
+            result.setIsSuccess(Boolean.TRUE);
             result.setBucketName(uploadResult.getBucketName());
             result.setPicName( uploadResult.getKey());
             result.setBucketKey( uploadResult.getKey());
