@@ -19,7 +19,7 @@ public class Jokes {
    * 主键
    */
   @TableId(type = IdType.AUTO)
-  private Integer id;
+  private Long id;
 
   /**
    * 文本

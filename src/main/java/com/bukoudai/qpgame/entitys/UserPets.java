@@ -21,7 +21,7 @@ public class UserPets {
    * 主键
    */
   @TableId(type = IdType.AUTO)
-  private Integer userPetId;
+  private Long userPetId;
 
   /**
    * 账号
@@ -33,7 +33,7 @@ public class UserPets {
    */
   private String petName;
 
-  private Integer petId;
+  private Long petId;
   private String petNike;
   private String isMain;
   private Integer isDelete;

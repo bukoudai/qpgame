@@ -12,24 +12,21 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("user_points")
-public class UserPoints {
+@TableName("user_text_content_pic")
+public class UserTextContentPic {
 
   /**
    * 主键
    */
   @TableId(type = IdType.AUTO)
   private Long id;
+  private Long userTextContentLogId;
 
-  /**
-   * 账号
-   */
-  private Long loginNo;
 
-  /**
-   * 积分
-   */
-  private Integer points;
+  private String url;
+  private String bucketName;
+  private String picName;
+  private String bucketKey;
 
 
 }

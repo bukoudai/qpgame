@@ -19,7 +19,7 @@ public class Pets {
    * 主键
    */
   @TableId(type = IdType.AUTO)
-  private Integer petId;
+  private Long petId;
 
   /**
    * 宠物名称

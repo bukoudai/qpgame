@@ -19,7 +19,7 @@ public class User {
    * 主键
    */
   @TableId(type = IdType.AUTO)
-  private Integer id;
+  private Long id;
 
   /**
    * 账号

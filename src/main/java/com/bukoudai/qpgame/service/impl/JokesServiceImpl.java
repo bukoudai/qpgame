@@ -46,7 +46,8 @@ public class JokesServiceImpl extends ServiceImpl<JokesMapper, Jokes> implements
       String content = tianZMSCVo.getNewslist().get(0).getStr("content");
       jokes.setText(content);
       jokes.setType(tianApiEnum.getCode());
-
+      jokes.setStatus(JokesStatusEnum.USED.getCode());
+      baseMapper.insert(jokes);
     } else {
       int i = RandomUtil.randomInt(integer);
       jokes = baseMapper.randomOneByType(typeCode, JokesStatusEnum.UNUSED.getCode(), i);

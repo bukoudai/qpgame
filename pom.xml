@@ -37,6 +37,12 @@
     </properties>
 
     <dependencies>
+        <!--腾讯对象储存sdk-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.6.97</version>
+        </dependency>
         <!--开发文档-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>

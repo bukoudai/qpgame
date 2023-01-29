@@ -57,6 +57,11 @@ tx:
   appid: xx
   secret_id: xx
   secret_key: xx
+  secret_id2: x
+  secret_key2: x
+  cos_region: x
+  bucket_key_prefix: x
+  bucket_name: xx
 txapi:
   key: xx
 bot:
