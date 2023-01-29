@@ -43,3 +43,31 @@ logging:
   level:
     com.bukoudai.qpgame: DEBUG
     org.springframework.data.mongodb.core: DEBUG
+
+schedule:
+  my_bot_task:
+    test: 00 30 08 * * ?
+
+yysj:
+  secret_id: xx
+  secret_key: xx
+  fy_news_url: xx
+  fy_details: xx
+tx:
+  appid: xx
+  secret_id: xx
+  secret_key: xx
+txapi:
+  key: xx
+bot:
+  your_qq_number: 123
+
+command:
+  key:
+    lqsay:
+      key: '/xx'
+      label: 'xx'
+      successmsg: 'x'
+      helpmsg: 'x'
+    openai:
+      key: 'xx'
