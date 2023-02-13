@@ -15,7 +15,7 @@ public class GroupMessageEventService {
   private final CommandBuild commandBulid;
 
   public SendMsgVo executCommand(MessageEvent event, long botId) {
-  log.info("event " );
+//  log.info("event " );
     Command bulid = commandBulid.build(event, botId);
     if (bulid == null) {
       return null;
