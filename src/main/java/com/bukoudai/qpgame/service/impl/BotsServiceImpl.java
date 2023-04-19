@@ -8,6 +8,7 @@ import com.bukoudai.qpgame.service.BotsService;
 import lombok.AllArgsConstructor;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
+
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,12 @@ public class BotsServiceImpl extends ServiceImpl<BotsMapper, Bots> implements Bo
     String loginPassword = bots.getLoginPassword();
     Long loginNo = bots.getLoginNo();
     BotConfiguration botConfiguration = new BotConfiguration();
-    botConfiguration.loadDeviceInfoJson(deviceJson);
+    if (deviceJson != null) {
+      botConfiguration.loadDeviceInfoJson(deviceJson);
+    }
+
+    botConfiguration.setProtocol(BotConfiguration.MiraiProtocol.MACOS);
+
     Bot bot = BotFactory.INSTANCE.newBot(loginNo, loginPassword, botConfiguration);
 
     bot.login();

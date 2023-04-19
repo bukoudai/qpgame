@@ -51,7 +51,9 @@ public enum CommandEnum {
   /**
    * 疫情信息
    */
-  FY_INFO_API_COMMAND("/疫情", FyInfoApiCommand.class, "疫情信息");
+  FY_INFO_API_COMMAND("/疫情", FyInfoApiCommand.class, "疫情信息")
+
+  ;
 
 
   private String key;
