@@ -11,6 +11,9 @@ import net.mamoe.mirai.BotFactory;
 
 import net.mamoe.mirai.utils.BotConfiguration;
 import org.springframework.stereotype.Service;
+import xyz.cssxsh.mirai.tool.FixProtocolVersion;
+
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -19,10 +22,23 @@ public class BotsServiceImpl extends ServiceImpl<BotsMapper, Bots> implements Bo
   public Bots getDefaultBot() {
     return baseMapper.selectOne(null);
   }
-
+  // 升级协议版本
+  public static void update2() {
+    FixProtocolVersion.update();
+  }
+  // 同步协议版本
+  public static void sync2() {
+    FixProtocolVersion.sync(BotConfiguration.MiraiProtocol.ANDROID_PAD);
+  }
+  // 获取协议版本信息 你可以用这个来检查update是否正常工作
+  public static Map<BotConfiguration.MiraiProtocol, String> info2() {
+    return FixProtocolVersion.info();
+  }
   @Override
   public Bot loginBot(Bots bots) {
-
+    update2();
+    sync2();
+    info2();
 
     String deviceJson = bots.getDeviceJson();
     String loginPassword = bots.getLoginPassword();
@@ -32,7 +48,7 @@ public class BotsServiceImpl extends ServiceImpl<BotsMapper, Bots> implements Bo
       botConfiguration.loadDeviceInfoJson(deviceJson);
     }
 
-    botConfiguration.setProtocol(BotConfiguration.MiraiProtocol.MACOS);
+    botConfiguration.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PAD);
 
     Bot bot = BotFactory.INSTANCE.newBot(loginNo, loginPassword, botConfiguration);
 

@@ -74,7 +74,7 @@
         <dependency>
             <groupId>net.mamoe</groupId>
             <artifactId>mirai-core-jvm</artifactId>
-            <version>2.14.0</version>
+            <version>2.15.0-dev-98</version>
 <!--            <version>2.15.0-M1</version>-->
         </dependency>
         <dependency>
@@ -194,7 +194,29 @@
             <artifactId>mybatis-plus-join</artifactId>
             <version>1.1.8</version>
         </dependency>
+
+        <dependency>
+            <groupId>xyz.cssxsh.mirai.tool</groupId>
+            <artifactId>fix-protocol-version-1.7.1.mirai2</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}\src\main\resources\lib\fix-protocol-version-1.7.1.mirai2.jar</systemPath>
+        </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>miraisnapshots</id>
+            <name>mirai snapshots</name>
+            <url>https://repo.mirai.mamoe.net/snapshots</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
 
     <dependencyManagement>
         <dependencies>
@@ -211,7 +233,6 @@
     <build>
         <finalName>api</finalName>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -228,7 +249,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
