@@ -6,6 +6,7 @@ import com.bukoudai.qpgame.entitys.Bots;
 import com.bukoudai.qpgame.mapper.BotsMapper;
 import com.bukoudai.qpgame.service.BotsService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
 
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import xyz.cssxsh.mirai.tool.FixProtocolVersion;
 
 import java.util.Map;
-
+@Slf4j
 @Service
 @AllArgsConstructor
 public class BotsServiceImpl extends ServiceImpl<BotsMapper, Bots> implements BotsService, IService<Bots> {
@@ -36,9 +37,13 @@ public class BotsServiceImpl extends ServiceImpl<BotsMapper, Bots> implements Bo
   }
   @Override
   public Bot loginBot(Bots bots) {
+    log.info("升级协议版本");
     update2();
+    log.info("同步协议版本");
     sync2();
-    info2();
+
+    Map<BotConfiguration.MiraiProtocol, String> miraiProtocolStringMap = info2();
+    log.info("协议版本信息:{}",miraiProtocolStringMap);
 
     String deviceJson = bots.getDeviceJson();
     String loginPassword = bots.getLoginPassword();

@@ -200,7 +200,7 @@
             <artifactId>fix-protocol-version-1.7.1.mirai2</artifactId>
             <version>1.0</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}\src\main\resources\lib\fix-protocol-version-1.7.1.mirai2.jar</systemPath>
+            <systemPath>${project.basedir}/lib/fix-protocol-version-1.7.1.mirai2.jar</systemPath>
         </dependency>
     </dependencies>
     <repositories>
@@ -231,6 +231,15 @@
     </dependencyManagement>
 
     <build>
+        <resources>
+            <resource>
+                <directory>lib</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
         <finalName>api</finalName>
         <plugins>
             <plugin>
